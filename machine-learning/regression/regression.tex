@@ -1,0 +1,415 @@
+\documentclass[11pt]{article} 
+\usepackage[margin=0.9in]{geometry}
+\usepackage{graphicx} 
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem} 
+\usepackage{graphicx} 
+\usepackage{caption}
+\usepackage{setspace} 
+\usepackage[super,comma,sort&compress]{natbib}
+\usepackage{nicefrac}
+
+\begin{document} 
+
+\section*{Linear Regression} 
+Simple linear regression models the relationship between a scalar dependent
+variable $y$ and a \mbox{$d$-dimensional} independent variable $\mathbf{x} \in
+\mathbb{R}^d$ as a linear function $f: \mathbb{R}^d \rightarrow \mathbb{R}$.
+Formally, this relationship is parametrized by a vector of weights
+\mbox{$\mathbf{w} = (w_0, ... , w_d)^T$} which define a line in $\mathbb{R}^d$:
+\begin{align}
+	f(\mathbf{x}) 
+= 
+	w_0 + w_1 x_{1} + ...  + w_d x_{d} 
+&& 
+	y(\mathbf{x}) 
+=
+	f(\mathbf{x}) 
++ 
+	\varepsilon(\mathbf{x}). 
+\end{align} 
+Here $f(\mathbf{x})$ and $\varepsilon(\mathbf{x})$ are the prediction and error
+of the model at $\mathbf{x}$, respectively, and $y(\mathbf{x})$ is the target
+function, \textit{i.e.} the true value of the system at $\mathbf{x}$.
+Typically, we assume an ``augmented'' $\mathbf{x}$, which allows us to define
+$f$ in matrix notation as follows.  
+\begin{align} 
+	\mathbf{x} 
+= 
+	\begin{pmatrix}
+		1      \\ 
+		x_1    \\
+		\vdots \\ 
+		x_n    \\ 
+	\end{pmatrix} 
+&& 
+	\implies 
+&& 
+	f(\mathbf{x}) 
+= 
+	\mathbf{x}^T
+	\mathbf{w} 
+\end{align} 
+As of now, the only condition we have placed on $\mathbf{w}$ is that it defines
+a line in $\mathbb{R}^d$.  
+Linear regression relies on a dataset of observations $\{(\mathbf{x}_1, y_1),
+... , (\mathbf{x}_n, y_n)\}$, to optimize $\mathbf{w}$ in linear function
+space.  
+By making the following definitions,
+\begin{align} 
+	\mathbf{y} 
+=
+	\begin{pmatrix}
+		y_1    \\ 
+		\vdots \\ 
+		y_n    \\ 
+	\end{pmatrix} 
+&& 
+	\mathbf{X} 
+= 
+	\begin{pmatrix}
+		\mathbf{x}_1^T \\ 
+		\vdots   	   \\ 
+		\mathbf{x}_n^T \\ 
+	\end{pmatrix} 
+=
+	\begin{pmatrix} 
+		1 	    &  x_{11}  & \hdots & x_{1d} \\ 
+		\vdots  &  \vdots  & \ddots & \vdots \\ 
+		1 		&  x_{n1}  & \hdots & x_{nd} \\ 
+	\end{pmatrix} 
+\end{align} 
+%At any $\mathbf{x}_i$ in this dataset, the the target $y$ is known,
+%$y(\mathbf{x}_i) = y_i$. Therefore, the error of the model at $\mathbf{x}_i$
+%can be calculated as follows.  %\begin{equation} %	\varepsilon(\mathbf{x}_i)
+%= %	y_i %- %	f(\mathbf{x}_i) %\end{equation} 
+we can also define an error vector, which contains the error in the model at
+each observed data point.
+\begin{equation} 
+	\boldsymbol{\varepsilon} 
+= 
+	\begin{pmatrix}
+	\varepsilon(\mathbf{x}_1) \\ \vdots \\ \varepsilon(\mathbf{x}_n) \\
+	\end{pmatrix} = \mathbf{y} - \mathbf{X} \mathbf{w} 
+\end{equation} 
+Intuitively, we desire to minimize the magnitude of $\boldsymbol{\varepsilon}$
+with respect to $\mathbf{w}$.
+However, in reality some elements of $\boldsymbol{\varepsilon}$ may differ in
+sign; minimizing the sum over all the elements runs the risk of building error
+cancellation into the model.  
+Instead we use an {\it ordinary least-squares} (OLS) treatment, which minimizes
+the strictly-positive squared Euclidean norm of $\boldsymbol{\varepsilon}$.
+This is called the cost function, $C(\mathbf{w})$.  
+\begin{align} 
+	C(\mathbf{w})
+= 
+	||
+		\boldsymbol{\varepsilon} 
+	||_2^2 
+= 
+	|| 
+		\mathbf{y} 
+	- 
+		\mathbf{X} 
+		\mathbf{w} 
+	||_2^2
+&& 
+	\hat{\mathbf{w}} 
+= 
+	\underset{
+		\mathbf{w}
+			}
+			{
+				\mathrm{argmin}
+			}
+	(C(\mathbf{w}))
+\end{align} 
+When the columns of $\mathbf{X}$ are linearly independent, this
+minimization has the following unique solution. 
+\begin{align}
+\label{eq:ols-solution} 
+\mathbf{X}^T \mathbf{X} \hat{\mathbf{w}} = \mathbf{X}^T
+\mathbf{y} && \implies && \hat{\mathbf{w}} = \left( \mathbf{X}^T \mathbf{X}
+\right)^{-1} \mathbf{y}.  
+\end{align} 
+Now we have a model for the relationship between $\mathbf{x}$ and $y$ which can
+make a prediction at an unknown (augmented) point $\mathbf{x}^*$ as follows:
+\begin{equation} 
+	f(\mathbf{x}^*) 
+=
+	(\mathbf{x}^*)^T 
+	\mathbf{\hat{w}} 
+\end{equation} 
+\newpage
+
+\section*{Ridge Regression} 
+Linear regression relies on the assumption of linear independence in the
+columns of $\mathbf{X}$, but for real-world datasets this is rarely the case.
+When $\mathbf{X}$ contains exact linear dependencies,
+Equation~\ref{eq:ols-solution} has singularities in the
+$(\mathbf{X}^T\mathbf{X})^{-1}$ term and thus no solution.  
+When $\mathbf{X}$ has near-linear dependencies, the coefficients
+$\hat{\mathbf{w}}$ blow up in the OLS procedure, rendering model overly
+sensitive to noise. 
+This problem is termed {\it multicollinearity} and can be addressed by ridge
+regression, which adds an $\mathcal{L}_2$ regularization to the OLS cost
+function to penalize large values in $\mathbf{w}$.
+
+\begin{align}
+	C(\mathbf{w}) 
+= 
+	|| 
+		\mathbf{y} 
+	- 
+		\mathbf{X} 
+		\mathbf{w} 
+	||_2^2 
++ 
+	\lambda 
+	|| 
+	\mathbf{w}
+	||_2^2 
+&& 
+	\hat{\mathbf{w}} 
+=
+	\underset{
+				\mathbf{w}
+			}
+			{
+					\mathrm{argmin}
+			}
+	(C(\mathbf{w})) 
+\end{align} 
+where $\lambda$ is a regularization parameter.  
+This can be thought of as introducing a constraint on the size of $\mathbf{w}$
+into the OLS minimization.
+In this case, solving for $\mathbf{\hat{w}}$ yields the following solution.
+\begin{equation} \label{eq:ridge-solution} \mathbf{\hat{w}} = ( \mathbf{X}^T
+\mathbf{X} + \lambda \mathbf{I})^{-1} \mathbf{X}^T\mathbf{y} \end{equation} The
+regularization term stabilizes the inverse by bounding its smallest eigenvalues
+away from zero.
+Once $\mathbf{\hat{w}}$ optimized, the prediction at an unseen point
+$\mathbf{x^*}$ is again given by
+\begin{equation}
+	f(\mathbf{x^*}) = \mathbf{\hat{w}}^T\mathbf{x^*}.
+\end{equation}
+
+\section*{Kernel Ridge Regression} 
+Ridge regression is one of the simplest algorithms that can be ``kernelized''
+to achieve a nonlinear treatment.  
+To use kernel methods, we define two key concepts: a nonlinear feature map
+$\phi(\mathbf{x})$ that maps $\mathbf{x}$ from the input space to an abstract
+feature space $\mathcal{F}$, and a kernel function $\kappa$ that corresponds to
+the inner product in $\mathcal{F}$. 
+Formally, 
+\begin{align} 
+	\phi 
+: 
+	\mathbb{R}^d \rightarrow \mathcal{F} 
+&& 
+	\kappa(\mathbf{x}, \mathbf{x}') 
+=
+	\langle 
+		\phi(\mathbf{x}), \phi(\mathbf{x}') 
+	\rangle.
+\end{align} 
+To move from ridge regression to kernel ridge regression (KRR), we replace all
+instances of $\mathbf{x}$ with its corresponding feature vector
+$\phi(\mathbf{x})$.  
+This means that KRR makes a prediction at $\mathbf{x^*}$ as follows.
+\begin{equation} 
+	\label{eq:krr-model}
+	f(\mathbf{x^*}) 
+=
+	[\phi(\mathbf{x^*})]^T \hat{\mathbf{w}}.  
+\end{equation} 
+Defining $\Phi_i \equiv [\phi(\mathbf{x}_i)]$, the design matrix $\mathbf{X}$
+becomes
+\begin{equation}
+	\boldsymbol{\Phi}
+=
+	\begin{pmatrix}
+		\Phi_1^T \\ 
+		\vdots \\ 
+		\Phi_n^T \\
+	\end{pmatrix}
+\end{equation}
+and we move from ridge regression to kernel ridge regression by replacing
+$\mathbf{X}$ in Equation~\ref{eq:ridge-solution} with $\boldsymbol{\Phi}$.
+\begin{equation}
+	\label{eq:krr-weights-1}
+	\mathbf{\hat{w}}
+=
+	\left(
+		\boldsymbol{\Phi}^T
+		\boldsymbol{\Phi}
+	+
+		\lambda
+		\mathbf{I}_n
+	\right)^{-1}
+	\boldsymbol{\Phi}^T
+	\mathbf{y}
+\end{equation}
+The key to kernel methods is the so-called ``kernel trick'': if we can
+rearrange these equations to only work with the inner products of feature
+vectors, then we can perform a nonlinear regression in $\mathcal{F}$ without
+explicitly defining the feature map $\phi$ (or the feature space itself).
+We'll start by using the Woodbury matrix identity\cite{Hager:1989p221} to
+rearrange Equation~\ref{eq:krr-weights-1}.
+\begin{equation}
+	\mathbf{\hat{w}}
+=
+	\boldsymbol{\Phi}^T
+	\left(
+		\boldsymbol{\Phi}
+		\boldsymbol{\Phi}^T
+	+
+		\lambda
+		\mathbf{I}
+	\right)^{-1}
+	\mathbf{y}
+\end{equation}
+Notice that the term $\boldsymbol{\Phi}\boldsymbol{\Phi}^T$ is a matrix of
+inner products in $\mathcal{F}$. 
+\begin{equation}
+	[\boldsymbol{\Phi\Phi}^T]_{ij}
+=
+	\Phi_i^T\Phi_j
+=
+	\langle
+		\Phi_i, \Phi_j
+	\rangle
+=
+	\kappa(\mathbf{x}_i, \mathbf{x}_j)
+\end{equation}
+Since this matrix plays an important role in kernel methods, we define
+$\mathbf{K} \equiv \boldsymbol{\Phi\Phi}^T$ as the kernel matrix of inner
+products between the observed feature vectors.
+%=
+%	\begin{pmatrix}
+%		\langle \Phi_1, \Phi_1 \rangle & \cdots & \langle \Phi_1, \Phi_n \rangle\\
+%		\vdots 						   & \ddots & \vdots					   \\
+%		\langle \Phi_n, \Phi_1 \rangle & \cdots & \langle \Phi_n, \Phi_n \rangle\\
+%	\end{pmatrix}
+%=
+%	\begin{pmatrix}
+%		\kappa(\mathbf{x}_1, \mathbf{x}_1) & \cdots & \kappa(\mathbf{x}_1, \mathbf{x}_n) \\
+%		\vdots							   & \cdots & \vdots \\
+%		\kappa(\mathbf{x}_n, \mathbf{x}_1) & \cdots & \kappa(\mathbf{x}_n, \mathbf{x}_n) \\
+%	\end{pmatrix}
+%\end{align}
+With this definition, the equation for $\mathbf{\hat{w}}$ becomes
+\begin{equation}
+	\label{eq:krr-solution-3}
+	\mathbf{\hat{w}}
+=
+	\boldsymbol{\Phi}^T
+	\left(
+		\mathbf{K}
+	+
+		\lambda
+		\mathbf{I}
+	\right)^{-1}
+	\mathbf{y}
+\end{equation}
+Now only the $\boldsymbol{\Phi}^T$ term on the right side of the equality in
+Equation~\ref{eq:krr-solution-3} prevents us from working exclusively with
+inner products.
+However, our end goal is not to solve for $\mathbf{\hat{w}}$ in itself, but to
+use it to make a prediction via Equation~\ref{eq:krr-model}.
+So let's think about what happens when we plug Equation~\ref{eq:krr-solution-3}
+into the KRR model (Equation~\ref{eq:krr-model}), which makes a prediction at
+an unseen point $\mathbf{x^*}$.
+\begin{align}
+	f(\mathbf{x}^*)
+&=
+	[\phi(\mathbf{x}^*)]^T
+	\boldsymbol{\Phi}^T
+	\left(
+		\mathbf{K}
+	+
+		\lambda
+		\mathbf{I}
+	\right)^{-1}
+	\mathbf{y}
+\end{align}
+Notice that $[\phi(\mathbf{x}^*)]^T \boldsymbol{\Phi}^T$ is a row vector of
+inner products between the feature vector at $\mathbf{x}^*$ and the feature
+vectors of observations.
+We will call this $[\mathbf{k}(\mathbf{x}^*)]^T$, where
+\begin{equation}
+	\mathbf{k}
+	(\mathbf{x}^*)
+\equiv
+	\begin{pmatrix}
+		\langle \phi(\mathbf{x}^*), \Phi_1 \rangle \\
+		\vdots \\
+		\langle \phi(\mathbf{x}^*), \Phi_n \rangle \\
+	\end{pmatrix}
+\end{equation}
+We have now arrived at a form of Equation~\ref{eq:krr-model} which involves
+only inner products, \textit{i.e.}, kernel functions.
+\begin{align}
+	f(\mathbf{x^*})
+&=
+	[\mathbf{k}
+	(\mathbf{x}^*)]^T
+	\left(
+		\mathbf{K}
+	+
+		\lambda
+		\mathbf{I}
+	\right)^{-1}
+	\mathbf{y}
+\end{align}
+Perhaps a more intuitive way of thinking about these equations is to define
+$\boldsymbol{\alpha} = (\mathbf{K} + \lambda\mathbf{I})^{-1}\mathbf{y}$:
+\begin{equation}
+	f(\mathbf{x}^*)
+=
+	\mathbf{k}^T
+	\mathbf{\alpha}
+=
+	\sum_{i=1}^n
+	k_i
+	\alpha_i
+=
+	\sum_{i=1}^n
+	\alpha_i
+	\kappa(\mathbf{x}^*, \mathbf{x}_i).
+\end{equation}
+%Here, the prediction at $\mathbf{x^*}$ is given by a dot product of feature
+%weights $\boldsymbol{\alpha}$ with the kernel function at $\mathbf{x^*}$ and
+%each $x_i$ in the vector $\mathbf{x}$ of observations.
+The penalty term $\lambda$ is considered a {\it hyperparameter} of the
+algorithm, because neither defined nor determined in the equations given.
+Therefore the KRR algorithm can be said to depend parametrically on the chosen
+value of $\lambda$.
+In practice, the value of $\lambda$ is inferred from the observations;
+cross-validation is one common way to do this and is discussed in the next
+section.
+
+\section*{Cross-Validation}
+
+Leave-one-out cross-validation (CV) is a technique for optimizing
+hyperparameters in machine-learning.
+The dataset of observed points ($\mathbf{X}$) is partitioned into $N_X$ bins of
+size one; thus each bin has one distinct sample.
+A validation set is formed by taking the first of these bins, while a training
+set is formed from the rest.
+The model is optimized on the training set, and then optimal hyperparameters
+are determined by minimizing the error on the singleton validation set.
+This procedure is repeated for each bin.
+At the end, there is a set of $N_X$ optimal hyperparameters obtained in this
+manner. 
+We take as our final hyperparameters the median of this set.
+This algorithm can be easily generalized to bins of arbitrary size, and is
+readily available in the SciKit-Learn software package for Python.
+
+
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
