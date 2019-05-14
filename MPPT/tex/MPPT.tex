@@ -1,0 +1,402 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{cancel}
+\usepackage{comment}
+
+% my shorthand
+\newcommand{\vsp}{\vspace{0.2cm}}
+\newcommand{\suml}{\ensuremath{\sum\limits}}
+\newcommand{\z}{\ensuremath{^{(0)}}}
+\newcommand{\one}{\ensuremath{^{(1)}}}
+\newcommand{\two}{\ensuremath{^{(2)}}}
+\newcommand{\no}{\ensuremath{\cancel}}
+\renewcommand{\l}{\ensuremath{\lambda}}
+\newcommand{\ve}{\ensuremath{\varepsilon}}
+\newcommand{\eps}{\ensuremath{\epsilon}}
+\newcommand{\tss}{\textsuperscript}
+\newcommand{\boldh}{\ensuremath{\mathbf{\hat{h}}}}
+\newcommand{\boldg}{\ensuremath{\mathbf{\hat{g}}}}
+
+% ornaments
+\renewcommand{\eth}{\ensuremath{^\text{th}}}
+\newcommand{\rst}{\ensuremath{^\text{st}}}
+\newcommand{\ond}{\ensuremath{^\text{nd}}}
+\newcommand{\dg}{\ensuremath{^\dagger}}
+\newcommand{\bigo}{\ensuremath{\mathcal{O}}}
+\newcommand{\tl}{\ensuremath{\tilde}}
+\newcommand{\op}[1]{\ensuremath{\hat{#1}}}
+
+
+\title{M{\o}ller Plesset Perturbation Theory}
+\author{Avery E. Wiens}
+\date{June 15, 2015}
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%   begin intro   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Intro: General Perturbation Theory}
+
+%%%%%%%%%%%%%%%%%%%%%%% PT background
+\subsection{Background}
+
+\noindent \\
+Perturbation theory (PT) is a mathematical approximation technique that has been used by physicists since well before the advent of quantum mechanics- including in the study of planetary motion and the discovery of Neptune in 1848. After the advent of quantum mechanics, PT was one of the first post-Hartree-Fock methods used by chemical physicists to approximate electron correlation. \\[1ex]
+
+\noindent 
+The basic concept of PT involves taking a physical system which is not soluble analytically and separating it into two parts. The first part, which we call the {\it model} or {\it ideal} system, is exactly, or nearly exactly, soluble, while the second is the more troublesome part which has no analytic solution. By introducing more and more of this second part, the familiar system can be `perturbed' to more closely model the system of interest.
+
+%%%%%%%%%%%%%%%%%%%%%%% PT mathematical form
+\subsection{Mathematical Form}
+It will be useful to introduce the general mathematical form of perturbation theory generally before applying it to the Schr{\"o}dinger equation. \vsp \\
+First, we separate the problem into
+\begin{enumerate}
+\item a solvable part: well-known or model system, and
+\item the `perturbation': cannot be solved exactly. 
+\end{enumerate}
+Let's call the full system $A$, the model system $K$, and the perturbation $V$.
+
+\begin{equation*}    
+   A = K + V   
+\end{equation*} 
+Now we give $V$ a coefficient $\l \in [0,1]$ called the {\it perturbation parameter}:
+
+\begin{equation}   
+   A = K + \l V    
+\end{equation} 
+$\l$ quantifies the deviation of the full system from the model system. If $\l=0$, the perturbation is `off', yielding simply the model system. If $\l=1$, then the perturbation is fully `on', yielding the true system. \vsp \\
+Next, since  $A$ is dependent on $\l$, we can expand A as a Taylor series in terms of $\l$. 
+\begin{equation*}  
+   A(\l) = A_0 + \l A_1 + \l^2 A_2 + ...   
+\end{equation*}
+Note that $A_0$ is just the ideal system. \vsp \\
+The perturbation term, $\l V = \l A_1 + \l^2 A_2 + ...$ again represents the deviation from the ideal system. If we could take the sum all the way out to infinity, we would have the exact solution to the system. Since we probably can't (that's the reason we are doing this problem), we choose somewhere to truncate the series: 
+\begin{center} $A(\l) \approx A_0 + \l A_1+\l^2 A_2$\end{center}
+We solve exactly for $A_0$ and iteratively for higher-order coefficients. Then, setting $\l=1$, we have obtained an approximate solution to A that is intermediate in accuracy between $A_0$ and the exact A.
+\newpage 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%   begin RSPT   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Rayleigh Sch{\"o}dinger Perturbation Theory (RSPT)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% INTRO
+\subsection{Approach}
+
+Nondegenerate Rayleigh Schr{\"o}dinger Perturbation Theory (RSPT) applies perturbation theory to the Schr{\"o}dinger equation,  $\hat{H} \Ket{\Psi_n} = E_n \Ket{\Psi_n}$. \vsp \\
+If we are interested in studying some quantum mechanical system with Hamiltonian $\hat{H}$, one way to start is by looking at a similar system with Hamiltonian $\hat{H}\z$ for which we know an exact solution (e.g. harmonic oscillator or particle in a box):
+\begin{center}    $\hat{H}^{(0)} \Ket{\Psi^{(0)}_n} =  E^{(0)}_n \Ket{\Psi^{(0)}_n}$    \end{center}
+Then we can think of $\hat{H}$ as a perturbation of this ``model'' Hamiltonian $\hat{H}\z$:
+\begin{center} $\hat{H} = \hat{H}^{(0)} + \hat{V}$, where $\hat{V}$ is the perturbation. \end{center} 
+Modify this equation slightly by introducing a {\bf perturbation parameter} $\lambda \in [0,1]$.
+\begin{center} $\hat{H} = \hat{H}^{(0)} + \lambda \hat{V}$ \end{center}
+Note that $\lambda=1$ yields the fully perturbed system and $\lambda=0$ yields the model system, so $\lambda$ decides whether $\hat{V}$ is ``off'', ``on'', or somewhere in between. \vsp \\
+Clearly, $\hat{H}$ depends on $\lambda$. 
+Thus, the eigenvalues \{$E_n$\} and eigenfunctions \{$\ket{\Psi_n}$\} of $\hat{H}$ also depend on $\lambda$. Expand them in a Taylor series with respect to $\lambda$. 
+\begin{align*}
+E_n (\lambda) &= E^{(0)}_n + \lambda^1 E\one_n + \lambda^2 E^{(2)}  + ... \\
+\ket{\Psi_n (\lambda)} &= \ket{\Psi^{(0)}_n} + \lambda^1 \ket{\Psi^{(1)}_n} + \lambda^2 \ket{\Psi^{(2)}_n} + ...
+\end{align*}
+Note ({\it intermediate normalization}):  \vsp \\
+Since $\hat{H}\z$ is Hermitian, we can assume that in our treatment of the model system we have been constructing our 0\tss{th} order wave functions to be orthonormal, i.e., so that $\Braket{\Psi^{(0)}_n | \Psi^{(0)}_m} = \delta_{n,m}$. Now as we run into these higher-order components of the wave function in the Taylor series $( \ket{\Psi_n^{(k)}} \text{ for } k > 0 ) $, we will construct them to be orthonormal to the reference determinant, so that $\braket{\Psi_n^{(0)} | \Psi_n^{(k)}} = \delta_{0,k} $. \vsp \\  
+The new Schr{\"o}dinger equation for the complete system is:
+\begin{center}     $\left(\hat{H}^{(0)} + \lambda \hat{V}\right)  \Ket{\Psi_n} = E_n \Ket{\Psi_n} $     \end{center}
+Plugging in our expanded expressions,  \vsp  \\
+$\left( \hat{H}^{(0)} + \lambda \hat{V}  \right) \left( \Ket{\Psi^{(0)}_n} + \lambda \Ket{\Psi^{(1)}_n} + \lambda^2 \Ket{\Psi^{(2)}_n} + ... \right) = \left[ E\z_n + \lambda E\one_n + \lambda^2 E\two  + ... \right] \left( \Ket{\Psi^{(0)}_n} + \lambda \Ket{\Psi^{(1)}_n} + \lambda^2 \Ket{\Psi^{(2)}_n} + ... \right) $ \vsp \\
+Break down this big eigenvalue problem into smaller ones by setting powers of $\lambda$ equal to each other. \vsp  \vsp \\
+\begin{tabular}{cc}
+$\lambda^0$  terms:      &  $\hat{H}^{(0)} \Ket{\Psi^{(0)}_n} =  E^{(0)}_n \Ket{\Psi^{(0)}_n}$   \vsp \\
+$\lambda^1$   terms:     &   $\hat{H}^{(0)} \Ket{\Psi^{(1)}_n} + \hat{V} \Ket{\Psi^{(0)}_n} =  E^{(0)}_n \Ket{\Psi^{(1)}_n} + E^{(1)}_n \Ket{\Psi^{(0)}_n}$  \vsp  \\
+$\lambda^2$  terms: & $\hat{H}^{(0)} \Ket{\Psi^{(2)}_n}+\hat{V} \Ket{\Psi^{(1)}_n}=E^{(0)}_n\Ket{\Psi\two_n} +E\one_n \Ket{\Psi^{(1)}_n}+ E^{(2)}_n \Ket{\Psi^{(0)}_n}$ \vsp \\
+$\lambda^k$  terms:     &  $\hat{H}^{(0)} \Ket{\Psi^{(k)}_n} + \hat{V} \Ket{\Psi^{(k-1)}_n}  =  \suml_{i=0}^k E^{(i)}_n \Ket{\Psi^{(k-i)}_n} $ \\
+\end{tabular} \vsp \\
+We can call each of these eigenvalue problems a ``k\tss{th} order Schr{\"o}dinger equation'' and solve them separately.
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Energy Corrections
+\subsection{Energy Corrections}
+We showed in the last section that for a given order k, there is a k\tss{th} order Schr{\"o}dinger equation with eigenvalues $E^{(k)}_n$. What is the significance of these values? 
+\begin{center}
+$E_n =  E_n^{(0)} + E_n^{(1)} + E_n^{(2)} + \,  ... \,  + \, E_n^{(k)} \, + ... \hspace{1cm} \text{ (where we let $\lambda=1$.)}$
+\end{center}
+would equal the exact energy of the system if we took the sum all the way out to infinity. Every term $E_n^{(1)}, E_n^{(2)}, ... $ can be considered a {\it correction} to $E_n^{(0)}$, the energy of the model system. We obtain the $k\tss{th}$ order energy correction by left-multiplying the $k$\tss{th} order Schr{\"odinger} equation by $\Bra{\Psi^{(0)}_n}$. \vsp
+
+
+%%%% 0th order
+{\bf $\mathbf{0^{\text{th}}}$  order energy correction}
+\begin{align*}
+\Bra{\Psi\z_n} \hat{H}\z \Ket{\Psi\z_n} &=  \Bra{\Psi\z_n} E\z_n \Ket{\Psi\z_n} \\
+							   &= E\z_n \Braket{\Psi\z_n | \Psi\z_n} \\
+							   &= E\z_n \, \delta_{0,0} \\
+\Bra{\Psi\z_n} \hat{H}\z \Ket{\Psi\z_n} &= E\z_n, \,\, \mbox{ which is the energy of the model system (trivial).}
+\end{align*} 
+
+%%%%% 1st order
+{\bf $\mathbf{1^{\text{st}}}$  order energy correction}
+\begin{align*}
+\Braket{\Psi \z_n | \hat{H}\z \Psi \one_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n}  &= \Bra{\Psi\z_n} E\z_n \Ket{\Psi\one_n}  + \Bra{\Psi\z_n} E\one_n \Ket{\Psi\z_n}  \\
+															  &= E\z_n\Braket{\Psi\z_n | \Psi\one_n}  + E\one_n \Braket{\Psi\z_n | \Psi\z_n} \\
+															  &= \no{E\z_n \, \delta_{0,1}} + E\one_n  \, \delta_{0,0} \\
+															   &= E\one_n
+\intertext{where we have simplified the right side using the intermediate normalization condition. Now we can solve the left side for the energy correction, $E\one_n$.}
+\Braket{\Psi \z_n | \hat{H}\z \Psi \one_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n} &= E\one_n  \\
+\Braket{\hat{H}^{(0) \dagger} \Psi \z_n | \Psi \one_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n} &= E\one_n  \\
+\Braket{\hat{H}^{(0)} \Psi \z_n | \Psi \one_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n} &= E\one_n  \\
+E\z_n \Braket{\Psi \z_n |\Psi \one_n } + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n}  &= E\one_n\\
+\no{E_n\z \,\delta_{0,1}} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n} &= E\one_n \, \mbox{ (also by intermediate normalization)}. \\
+\Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n} &= E\one_n 
+\end{align*}
+
+%%%%% 2nd order
+{\bf $\mathbf{2^{\text{nd}}}$  order energy correction}
+\begin{align*}
+\Braket{\Psi \z_n | \hat{H}\z \Psi \two_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &=  E\z_n\Braket{\Psi\z_n | \Psi\two_n}  + E\one_n \Braket{\Psi\z_n | \Psi\one_n} + E\two_n \Braket{\Psi\z_n | \Psi\z_n} \\
+&=  \no{E\two_n \, \delta_{0,2}}  +  \no{E\one_n \, \delta_{0,1}} + E\two_n\,  \delta_{0,0} \\
+&=  E\two_n \\
+\Braket{\hat{H}^{(0)\dagger} \Psi \z_n |\Psi \two_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &= E\two_n \\
+\Braket{\hat{H}^{(0)} \Psi \z_n |\Psi \two_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &= E\two_n \\
+E\z_n \Braket{\Psi \z_n | \Psi \two_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &= E\two_n \\
+\no{E\z \, \delta_{0,2}} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &= E\two_n \\
+ \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n} &= E\two_n \\
+ \intertext{This expression depends upon the 1$^{\text{st}}$ order correction to the wave function, $\Ket{\Psi\one_n}$ (see next section).}
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wave function corrections
+\subsection{Wave Function Corrections}
+Recall that the Taylor expansion of $\Ket{\Psi_n}$ 
+\begin{center}
+$\Ket{\Psi_n} = \Ket{\Psi\z_n} + \Ket{\Psi\one_n} + \Ket{\Psi\two_n} + ... \hspace{1cm} \text{(with $\lambda=1$)}  $
+\end{center}
+would equal the exact wave function if we were able to take the sum all the way out to infinity. Thus we can consider each $\Ket{\Psi^{(k)}_n}$ to be the k\tss{th} order correction to the wave function. We can construct each $\Ket{\Psi^{(k)}_n}$ as linear combinations of elements of any complete basis set. For our basis set, it makes sense to use the eigenfunctions of $\hat{H}\z$, because we already know them. \\
+\begin{center}
+$\Ket{\Psi^{(k)}_n} = \suml_{\mu} C^{(k)}_{n,\mu} \Ket{\Psi\z_{\mu}} $  
+\end{center}
+In words, this means that we want to write each k\tss{th} order correction to the wavefunction in terms of our basis functions $\{\ket{\Psi\z_{\mu}}\}$ and coefficients $\{C^{(k)}_{n \mu}\}$. How do we determine these expansion coefficients? To start, we know that the $C^{(k)}_{n, n}$ coefficient will be zero by intermediate normalization, so we can use a restricted sum:
+\begin{center}
+$\Ket{\Psi^{(k)}_n} = \suml_{\mu \neq n} C^{(k)}_{n \mu} \Ket{\Psi\z_{\mu}}$ \hspace{1cm} (*)
+\end{center} 
+
+%%%%%%% 1st order 
+\noindent {\bf 1\tss{st} order wave function correction:}  \vsp \\
+To find the expansion coefficient $C^{(1)}_{n,\nu}$ we substitute equation (*) into our 1st-order Schr{\"o}dinger equation.
+\begin{align*}
+\hat{H}^{(0)} \Ket{\Psi^{(1)}_n} + \hat{V} \Ket{\Psi^{(0)}_n} &=  E^{(0)}_n \Ket{\Psi^{(1)}_n} + E^{(1)}_n \Ket{\Psi^{(0)}_n} \\
+\hat{H}^{(0)} \suml_{\mu \neq n}C\one_{n,\mu}\Ket{\Psi^{(0)}_{\mu}}+\hat{V} \Ket{\Psi^{(0)}_n} &= E^{(0)}_n\suml_{\mu \neq n} C\one_{n,\mu} \Ket{\Psi^{(0)}_{\mu}} + E^{(1)}_n \Ket{\Psi^{(0)}_n} \\
+\suml_{\mu \neq n}C\one_{n,\mu}  \, \hat{H}^{(0)} \Ket{\Psi^{(0)}_{\mu}}+\hat{V} \Ket{\Psi^{(0)}_n} &= \suml_{\mu \neq n} C\one_{n,\mu}  \, E^{(0)}_n \Ket{\Psi^{(0)}_{\mu}} + E^{(1)}_n \Ket{\Psi^{(0)}_n} \\
+\suml_{\mu \neq n} C\one_{n,\mu}  \, E\z_{\mu} \Ket{\Psi^{(0)}_{\mu}}+\hat{V} \Ket{\Psi^{(0)}_n} &= \suml_{\mu \neq n} C\one_{n,\mu}  \, E^{(0)}_n \Ket{\Psi^{(0)}_{\mu}} + E^{(1)}_n \Ket{\Psi^{(0)}_n} \\
+\intertext{Left-multiplying by $\Bra{\Psi_{\nu}\z}$ (with $\nu \neq n$), }
+\Bra{\Psi_{\nu}\z} \suml_{\mu \neq n} C\one_{n,\mu} E\z_{\mu} \Ket{\Psi^{(0)}_{\mu}}+ \Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n} &= \Bra{\Psi_{\nu}\z} \suml_{\mu \neq n} C\one_{n,\mu}  \,  E^{(0)}_n \Ket{\Psi^{(0)}_{\mu}} + \Bra{\Psi_{\nu}\z} E^{(1)}_n \Ket{\Psi^{(0)}_n} \\
+\suml_{\mu \neq n} C\one_{n,\mu}  \, E\z_{\mu} \Braket {\Psi_{\nu}\z | \Psi^{(0)}_{\mu} } + \Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n} &=  \suml_{\mu \neq n} C\one_{n,\mu}  \, E^{(0)}_n \Braket{\Psi_{\nu}\z | \Psi\z_{\mu}} + E^{(1)}_n \Braket{\Psi_{\nu}\z | \Psi\z_n} \\
+\suml_{\mu \neq n} C\one_{n,\mu} \, E\z_{\mu} \, \delta_{\nu, \mu} + \Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n} &=  \suml_{\mu \neq n} C\one_{n,\mu}  \, E^{(0)}_n \, \delta_{\nu, \mu} + \no{E^{(1)}_n \delta_{\nu, n}} \\
+   \Bra{\Psi_{\nu}\z}
+      \hat{V} 
+   \Ket{\Psi^{(0)}_n}
+&= 
+   \suml_{\mu \neq n} 
+   C\one_{n,\mu}  \,  
+   (E\z_n -E\z_{\mu}) \,
+    \delta_{\nu, \mu}
+ \\ 
+&= C\one_{n,\nu} (E\z_n -E\z_{\nu}) \, \delta_{\nu, \nu}= C\one_{n,\nu} (E\z_n -E\z_{\nu}) \\ 
+\intertext{Rearranging to solve for the first-order coefficients,}
+C\one_{n,\nu} &= \frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n -E\z_{\nu})}
+\intertext{Plugging the coefficients back into the expression for the 1\tss{st} order wavefunction correction,}
+\ket{\Psi\one_n} &= \suml_{\nu \neq n} C^{(k)}_{n \nu} \Ket{\Psi\z_{\nu}}  \\
+			 &= \suml_{\nu \neq n} \frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n -E\z_{\nu})} \Ket{\Psi\z_{\nu}}
+\intertext{And so we can say that the wave function, corrected to first order (but not normalized) is:}
+\Ket{\Psi_n} &= \Ket{\Psi\z_n} +  \suml_{\nu \neq n} \frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n -E\z_{\nu})} \Ket{\Psi\z_{\nu}}. 
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% RSPT Energy Expressions
+\subsection{Energy Expressions}
+We have determined all the relevant correction terms to out the 0\tss{th}, 1\tss{st}, and 2{nd} order energy expressions. Remember that the 0\tss{th} and 1\tss{st} order corrections don't depend on the wavefunction correction so we could have walked away with those energy expressions after section 1.2.  \vsp \\
+{\bf $\mathbf{0^{\text{th}}}$  order energy expression}  \\
+\begin{align*}
+E_n &\approx E\z_n  \\
+        &\approx  \Bra{\Psi\z_n} \hat{H}\z \Ket{\Psi\z_n} \mbox{ , trivially.}
+\intertext{In words, this just means that the 0\tss{th} order energy expression is the energy of the model system- the solution to the model Schr{\"o}dinger equation.}
+\end{align*}
+{\bf  $\mathbf{1^{\text{st}}}$  order energy expression} \vsp \\
+\begin{align*}\
+E_n  &\approx E\z_n + E\one_n \\
+         &\approx \Bra{\Psi\z_n} \hat{H}\z \Ket{\Psi\z_n} + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\z_n}  \\
+         &\approx \Bra{\Psi\z_n} \hat{H}\z + \hat{V} \Ket{\Psi\z_n} \\
+         &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n} \\
+\intertext{In words, this means that the first-order energy is equal to the expectation value of the full Hamiltonian with respect to the 0\tss{th} order wave function. {\it This is important, especially when we apply RSPT to HF Theory!!}}
+\end{align*}
+{\bf $\mathbf{2^{\text{nd}}}$  order energy expression} \\
+\begin{align*}\
+E_n  &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n}  + E\two_n \\
+         &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n}  + \Bra{\Psi\z_n} \hat{V} \Ket{\Psi\one_n}  \\
+    &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n} + \Bra{\Psi\z_n} \hat{V} \left[ \suml_{\nu \neq n} \frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n -E\z_{\nu})} \right] \Ket{\Psi\z_n}\\
+    &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n} +  \suml_{\nu \neq n} \frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n -E\z_{\nu})}  \Bra{\Psi\z_n} \hat{V}\Ket{\Psi\z_n}\\
+    &\approx \Bra{\Psi\z_n}\hat{H} \Ket{\Psi\z_n}+\suml_{\nu \neq n}\frac{\Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n} \Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n}}{(E\z_n-E\z_{\nu})}\\
+    &\approx \Bra{\Psi\z_n} \hat{H} \Ket{\Psi\z_n} +  \suml_{\nu \neq n} \frac{\left| \Bra{\Psi_{\nu}\z}\hat{V} \Ket{\Psi^{(0)}_n} \right|^2} {(E\z_n -E\z_{\nu})}  \\
+\end{align*}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%       begin MPPT      %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{M{\o}ller-Plesset Perturbation Theory}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% MPPT Background
+
+
+\subsection{Approach}
+The main idea of MPPT is to think of the electronic Hamiltonian as a perturbed Fock operator:
+\begin{center}   $\hat{H} = \hat{F} + \lambda\hat{V}$  \end{center}
+a technique is reasonable because the reference determinant $\Phi$ is often a reasonable approximation to the true wave function. Therefore, it makes sense to think of $\hat{F}$ as a `model system' with respect to the true electronic Hamiltonian, and the difference between them as a perturbation, since in principle it should be small, as long as $\Phi$ is a qualitatively accurate description of the wave function.
+
+\subsection{Formalism}
+We define this mathematically as follows:
+\begin{align*}
+\intertext{{\bf Full system}: Electronic Hamiltonian}
+\hat{H} &= \suml_i^Nh(i) +\suml_{i<j}^N \frac{1}{r_{ij}} 
+\intertext{{\bf `Model' Hamiltonian}: Fock Operator}
+H^{(0)} &= \hat{F} =\suml_i^Nf(i) = \suml_i^N \left[h(i) + \suml_p^N[J_p(i) -K_p(i)] \right]
+\intertext{{\bf Perturbation}}
+V &= \suml_{i<j}^N \frac{1}{r_{ij}} -\suml_i^N \suml_p^N [J_p(i) -K_p(i)]
+\intertext{{\bf Basis Set}: Excited HF Determinants}
+\{\Phi_i^a&, \, \, \Phi_{ij}^{ab}, \, \, \Phi_{ijk}^{abc},... \}
+\end{align*}
+
+
+\subsection{Energy corrections}
+Each term in the perturbation expansion that we include in the energy expression can be considered a correction to the $0^{th}$ order energy which gets us closer to the true energy of the system.
+\begin{center} $E_{0} \, (\text{exact}) = E_0^{(0)} + E_0^{(1)} + E_0^{(2)} + ...+ E_0^{(k)} + ... $ \end{center}
+Therefore, it is of interest to use RSPT to derive the $0\eth$, $1\rst$, \mbox{ and } $2\ond$ order MPPT energy expressions. 
+\vsp \\
+
+\noindent {\bf 0\tss{th} order energy correction:}
+\begin{align*}
+\intertext{Finding $ E_0^{(0)} $ is simple, because we already know that the first term in the power series is just the solution to the unperturbed system.}
+&\mbox{Unperturbed Hamiltonian: }\, \hat{F} \\
+&\mbox{Unperturbed energy: } \, \Bra{\Phi} \hat{F} \Ket{\Phi} = \suml_i^N \epsilon_i = \mathcal{E} \\
+\intertext{N.B. \, $\mathcal{E}$ is the sum of the orbital energies, NOT the HF energy.}
+\end{align*}
+
+\noindent {\bf 1\tss{st} order energy correction:} 
+\begin{align*}
+\intertext{From RSPT (see section 2.2),}
+E_0^{(1)} &= \Bra{\Psi_0^{(0)}} \hat{V} \Ket{\Psi_0^{(0)}}   \\
+&= \Bra{\Phi} \hat{V} \Ket{\Phi} \\ 
+&= \Bra{\Phi} \suml_{i<j}^N \frac{1}{r_{ij}} \Ket{\Phi} - \Bra{\Phi} \suml_{i,j}^N \left( J_j (1) - K_j(1) \right) \Ket{\Phi} \\  
+&=  \suml_{i<j}^N \Bra{\Phi} \frac{1}{r_{ij}} \Ket{\Phi} -  \suml_{i,j}^N  \Bra{\Phi}\left( J_j (1) - K_j(1) \right)  \Ket{\Phi} \\
+E_0^{(1)} &= \frac{1}{2} \suml_{i,j}^{N} \bra{ij} \ket{ij}  -  \suml_{i,j}^{N} \bra{ij} \ket{ij} \, \mbox{ (by Slater's Rules)} \\
+&= -\frac{1}{2} \suml_{i,j}^{N} \bra{ij} \ket{ij}
+\end{align*}
+
+\noindent {\bf 2\tss{nd} order energy correction:} 
+\begin{align*}
+\intertext{From RSPT (see section 2.2),}
+   E_0^{(2)} 
+&= 
+   \suml_{\nu =1} 
+      \frac{
+         \Bra{\Psi_{\nu}^{(0)}} \hat{V} \Ket{\Psi_0^{(0)}}
+      }
+         {E\z_0 - E\z_{\nu}
+      } 
+\\
+\intertext{Here we are summing over all possible excitations from $\Psi\z_0 \rightarrow \Psi_{\nu}\z$. Since $\Psi\z_0 = \Phi$, our HF reference determinant, we can rearrange things to look much more familiar by writing these excitations in terms of our basis, the Hartree-Fock excited states.}
+E\two_0 &= \suml_{\substack{i\\a}} \frac{ \left| \Bra{\Phi_i^a}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_i^a} + \suml_{\substack{i<j\\a<b}} \frac{ \left| \Bra{\Phi_{ij}^{ab}}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_{ij}^{ab}} + \suml_{\substack{i<j<k \\a<b<c}} \frac{ \left| \Bra{\Phi_{ijk}^{abc}}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_{ijk}^{abc}} + ... 
+\intertext{Since $\hat{V}$ is a sum of 1- and 2- particle operators, we know by Slater's rules that the determinants with triple excitations and higher will not contribute.}
+E\two_0 &= \suml_{\substack{i\\a}} \frac{ \left| \Bra{\Phi_i^a}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_i^a} + \suml_{\substack{i<j\\a<b}} \frac{ \left| \Bra{\Phi_{ij}^{ab}}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_{ij}^{ab}}
+\intertext{Now consider the term with only single excitations.}
+\suml_{\substack{i\\a}} \frac{ \left| \Bra{\Phi_i^a}\hat{V} \Ket{\Phi}  \right|^2}{E\z_0 -E_i^a}  &= \suml_{\substack{i\\a}} \frac{ \left| \Bra{\Phi_i^a}\hat{H} \Ket{\Phi}  \right|^2}{E\z_0 -E_i^a} - \suml_{\substack{i\\a}} \frac{ \left| \Bra{\Phi_i^a}\hat{F} \Ket{\Phi}  \right|^2}{E\z_0 -E_i^a}  \\
+&= 0 \, \mbox{ by {\it Brillouin's theorem}. }
+\intertext{We have shown that only the doubly excited Slater determinants contribute to $E_0\two$.}
+E_0^{(2)} &=\suml_{\substack{i<j\\a<b}} \frac{ \left| \Bra{\Phi_{ij}^{ab}}\hat{V} \Ket{\Phi} \right|^2}{E\z_0 -E_{ij}^{ab}} \\
+&= \suml_{\substack{i<j\\a<b}} \frac{ \left| \Bra{\Phi_{ij}^{ab}}\hat{\frac{1}{r_{ij}}} \Ket{\Phi} \right|^2}{E\z_0 -E_{ij}^{ab}} - \no{\suml_{\substack{i<j\\a<b}} \frac{ \left| \Bra{\Phi_{ij}^{ab}}\left(J_j - K_j \right) \Ket{\Phi} \right|^2}{E\z_0 -E_{ij}^{ab}}}  \, \mbox{ (by {\it Slater})} \\
+&= \suml_{\substack{i<j\\a<b}} \frac{\left|  \bra{ab}\ket{ij} \right|^2}{E\z_0 -(E\z_0 -\ve_i -\ve_j +\ve_a + \ve_b)} \, \mbox{ (also by {\it Slater})} \\
+&= \suml_{\substack{i<j\\a<b}} \frac{\left|  \bra{ab}\ket{ij} \right|^2}{- \ve_i - \ve_j  + \ve_a + \ve_b} \\
+&= -   \frac{1}{4} \suml_{ijab} \frac{\left| \bra{ab}\ket{ij} \right|^2}{\ve_a + \ve_b- \ve_i - \ve_j}
+\end{align*}
+
+
+\subsection{Energy Expressions}
+Now let's review and put together all the energy expressions which we have just derived.
+\begin{align*}
+\mathbf{E^{\textbf{MP0}}}&= E_0^{(0)} \\
+&= \suml \ve_i = \mathcal{E} \, \mbox{ the sum of HF orbital energies}\\ 
+\mathbf{E^{\textbf{MP1}}}&= E_0^{(1)} + E_0^{(0)} \\
+&= \mathcal{E} - \frac{1}{2} \suml_{i,j}^{N} \bra{ij} \ket{ij} \\
+&= E_{HF} \,  \mbox{ (cool!!)}             \\
+\mathbf{E^{\textbf{MP2}}}&= E_0^{(2)} + E_0^{(1)}+ E_0^{(0)}  \\
+&= E_{HF} - \frac{1}{4} \suml_{ijab} \frac{\left|\bra{ij} \ket{ab} \right|^2}{\eps_a + \eps_b -\eps_i -\eps_j}
+\end{align*}
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%       APPENDIX      %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+\subsection{Slater Rules}
+The following 7 statements are extremely useful for simplifying the expectation values of 1- and 2- particle quantum mechanical operators with respect to Slater determinants. \vsp \\
+\noindent {\bf For 1-particle operators:} \vspace{0.2cm} \\
+Let $\boldh$ be a 1-particle operator, $\boldh = \suml_i^n \hat{h}(i) $.
+\begin{enumerate}
+\item Same determinant
+\begin{center}
+$\bra{\Phi}\boldh \ket{\Phi} = \suml_i \bra{\psi_i} \hat{h}\ket{\psi_i}$. 
+\end{center}
+\item Singly excited determinant
+\begin{center}
+$\bra{\Phi}\boldh\ket{\Phi_i^a} = \bra{\psi_i} \hat{h} \ket{\psi_a}$
+\end{center}
+\item Doubly excited determinant
+\begin{center}
+$ \bra{\Phi} \boldh \ket{\Phi_{ij}^{ab}} = 0. $
+\end{center}
+\end{enumerate}
+
+\noindent {\bf For 2-particle operators:} \vsp \\
+Let $\boldg$ be a 2-particle operator, $\boldg = \suml_{i<j}^n \hat{g}(i,j) = \frac{1}{2}\suml_{i,j}^n \hat{g}(i,j) $.
+\begin{enumerate}
+\item Same determinant
+\begin{center}
+$ \bra{\Phi}\boldg\ket{\Phi} = \frac{1}{2} \suml_{ij} \left( \bra{\psi_i \psi_j}\hat{g}(i,j) \ket{\psi_i \psi_j} -  \bra{\psi_i \psi_j}\hat{g}(i,j) \ket{\psi_j \psi_i} \right) $ 
+\end{center}
+\item Singly excited determinant
+\begin{center}
+$\bra{\Phi}\boldg\ket{\Phi_i^a} = \suml_{j} \left( \bra{\psi_i \psi_j} \hat{g}(i,j)\ket{\psi_a \psi_j} - \bra{\psi_i \psi_j} \hat{g}(i,j)\ket{\psi_j \psi_a} \right)$
+\end{center}
+\item Doubly excited determinant
+\begin{center}
+$\bra{\Phi}\boldg\ket{\Phi_{ij}^{ab}} = \bra{\psi_i \psi_j}\hat{g}(i,j) \ket{\psi_a \psi_b} -\bra{\psi_i \psi_j}\hat{g}(i,j) \ket{\psi_b \psi_a} $
+\end{center}
+\item Triply excited determinant
+\begin{center}
+$\bra{\Phi}\boldg\ket{\Phi_{ijk}^{abc}} = 0. $
+\end{center}
+\end{enumerate}
+
+
+
+\end{document}

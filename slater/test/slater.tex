@@ -1,0 +1,895 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage[margin=0.9in]{geometry}
+
+% my shorthand
+\newcommand{\vsp}{\vspace{0.2cm}}
+\newcommand{\suml}{\sum\limits}
+\newcommand{\boldh}{\ensuremath{\mathbf{\hat{h}}}}
+\newcommand{\boldg}{\ensuremath{\mathbf{\hat{g}}}}
+\newcommand{\no}{\cancel}
+\renewcommand{\qed}{\ensuremath{\vsp \\ &\hspace{0.15cm} \blacksquare. \\}}
+\newcommand{\pmt}{\ensuremath{\mathcal{P}}}
+
+\newcommand{\dt}{\ensuremath{\delta}}   		 % delta
+\newcommand{\rh}{\ensuremath{\rho}}                % rho
+\newcommand{\sg}{\ensuremath{\sigma}}           % sigma
+\newcommand{\ld}{\ensuremath{\lambda}}		 % lambda
+
+\newcommand{\f}{\ensuremath{\phi}}  % phi
+\newcommand{\F}{\ensuremath{\Phi}}
+\newcommand{\y}{\ensuremath{\psi}}
+\newcommand{\Y}{\ensuremath{\Psi}}
+
+
+\title{\bf Slater-Condon Rules}
+\author{Avery E. Wiens}
+\date{July 2015}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%           INTRO                   %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Introduction}
+
+\subsection{Slater-Condon Rules}
+The goal of this handout is to prove the following 7 statements about the expectation values of 1- and 2- particle operators with respect to an arbitrary Slater determinant $\ket{\F}$ We'll prove them in two different formalisms - first quantization (11 pages) and second quantization (1 page). \vspace{0.3cm} \\
+\noindent {\bf For 1-particle operators:} \vspace{0.3cm} \\
+Let $\boldh$ be a 1-particle operator, $\boldh = \suml_i^n \hat{h}_i $.
+\begin{enumerate}
+\item Same determinant
+\begin{equation}
+   \bra{\F}
+      \boldh 
+   \ket{\F} 
+= 
+   \suml_i 
+      \bra{\y_i} 
+         \hat{h}
+      \ket{\y_i} 
+\end{equation}
+\item Singly excited determinant
+\begin{equation}
+   \bra{\Phi}
+      \boldh
+   \ket{\Phi_i^a} 
+= 
+   \bra{\psi_i} 
+      \hat{h} 
+   \ket{\psi_a}
+\end{equation}
+\item Doubly excited determinant
+\begin{equation}
+   \bra{\Phi} 
+      \boldh 
+   \ket{\Phi_{ij}^{ab}} 
+= 
+   0
+\end{equation}
+\end{enumerate}
+
+\noindent {\bf For 2-particle operators:} \vspace{0.3cm} \\
+Let $\boldg$ be a 2-particle operator, $\boldg = \suml_{i<j}^n \hat{g}_{ij} = \frac{1}{2}\suml_{i,j}^n \hat{g}_{ij} $.
+\begin{enumerate}
+\item Same determinant
+\begin{equation}
+   \bra{\Phi}
+      \boldg
+   \ket{\Phi} 
+= 
+   \frac{1}{2} 
+   \suml_{ij} 
+      \left( 
+         \bra{\psi_i \psi_j}
+            \hat{g}_{ij} 
+            \ket{\psi_i \psi_j} 
+       -  
+          \bra{\psi_i \psi_j}
+             \hat{g}_{ij} 
+          \ket{\psi_j \psi_i} 
+       \right)
+\end{equation}
+\item Singly excited determinant
+\begin{equation}
+   \bra{\Phi}
+      \boldg
+   \ket{\Phi_i^a} 
+= 
+   \suml_{j} 
+      \left( 
+         \bra{\psi_i \psi_j}
+             \hat{g}_{ij}
+          \ket{\psi_a \psi_j} 
+       - 
+          \bra{\psi_i \psi_j} 
+             \hat{g}_{ij}
+          \ket{\psi_j \psi_a} 
+       \right)
+\end{equation}
+\item Doubly excited determinant
+\begin{equation}
+   \bra{\Phi}
+      \boldg
+    \ket{\Phi_{ij}^{ab}} 
+= 
+   \bra{\psi_i \psi_j}
+      \hat{g}_{ij} 
+   \ket{\psi_a \psi_b} 
+-
+   \bra{\psi_i \psi_j}
+      \hat{g}_{ij} 
+   \ket{\psi_b \psi_a}
+\end{equation}
+\item Triply excited determinant
+\begin{equation}
+   \bra{\Phi}
+      \boldg
+   \ket{\Phi_{ijk}^{abc}} 
+= 
+   0
+\end{equation}
+\end{enumerate}
+
+\subsection{Important Notation for First Quantization}
+$\Phi = \frac{1}{\sqrt{n!}} \suml^{n!}_{i=1} (-1)^{p_{i}} \, \mathcal{P}_i \left(\psi_1(1) ... \psi_n(n)\right)$ is a Slater determinant. (By convention, $\Braket{\psi_i | \psi_j} = \delta_{ij}$.) \vsp \\
+$\pmt_i$ is a permutation operator that runs over all n! permutations of electrons 1 ... n. \vsp \\
+$p_i$ is the number of transpositions required to restore a given permutation to its natural order 1 ... n. 
+
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%           Lemmata           %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{Useful Lemmata}
+
+%  Lemma for 1-particle operators
+Here we prove two Lemmata that follow from the fact that electrons are indistinguishable.
+\subsection{Lemma for 1-particle operators}
+{\it Statement}: For a one-electron operator $\boldh$, \\
+\begin{equation} 
+   \Bra{\F_P} 
+      \suml_{k=1}^{n} 
+         \hat{h}_k 
+   \Ket{\F_Q} 
+= 
+   n 
+   \Bra{\Phi_P} 
+      \hat{h}_1 
+   \Ket{\F_Q} \,\, 
+   \forall \, P, \, Q.  
+\end{equation}
+{\it Proof}: \vspace{-0.3cm}
+\begin{align*}
+\intertext{Since dummy variables are interchangeable in integration,}
+   \int 
+      \mathrm{d}(1 ... k ... n) \,  
+      \Phi_P^* (1 ... k ... n) \, 
+         \hat{h}_k \, 
+      \Phi_Q (1 ... k ... n) 
+&= 
+   \int 
+      \mathrm{d}(k ... 1 ... n) \, 
+      \Phi_P^* (k ... 1 ... n) \, 
+         \hat{h}_{1} \, 
+      \Phi_Q (k ... 1 ... n)
+\intertext{Furthermore, since the order of the differential elements themselves does not matter,}
+&= 
+   \int 
+      \mathrm{d}(1 ... k ... n) \, 
+       \Phi_P^* (k ... 1 ... n) \, 
+          \hat{h}_{1} \, 
+       \Phi_Q (k ... 1 ... n) 
+\\
+\intertext{Now applying the antisymmetry property of determinants,}
+&= 
+   (-1) 
+   \int 
+      \mathrm{d}(1 ... k ... n)\,  
+      \Phi_P^* (1 ... k ... n) \, 
+         \hat{h}_{1}\, 
+      \Phi_Q (k ... 1 ... n) 
+\\&= 
+   (-1)^2 
+   \int 
+      \mathrm{d}(1 ... k ... n) \, 
+      \Phi_P^* (1 ... k ... n) \, 
+         \hat{h}_{1} \, 
+      \Phi_Q (1 ... k ... n) 
+\\&= 
+   \int 
+   \mathrm{d}(1 ... k ... n) \, 
+   \Phi_P^* (1 ... k ... n) \, 
+      \hat{h}_{1} \, 
+   \Phi_Q (1 ... k ... n) 
+\\
+\intertext{Rewriting in Dirac notation, what we have shown is that} 
+   \Bra{\F_P} 
+      \hat{h}_k 
+   \Ket{\F_Q}  
+&= 
+   \Bra{\Phi_P} 
+       \hat{h}_{1} 
+    \Ket{\Phi_Q}.  
+\\
+\intertext{We can easily apply this result to the sum over all electrons in the system:}
+   \Bra{\Phi_P} 
+      \suml_{k=1}^n 
+         \hat{h}_k 
+   \Ket{\Phi_Q}  
+&= 
+   \suml_{k=1}^n 
+   \Bra{\Phi_P}  
+      \hat{h}_k 
+   \Ket{\Phi_Q}  
+\\&= 
+	\suml_{k=1}^n 
+	\Bra{\Phi_P}  
+	   \hat{h}_{1} 
+	\Ket{\Phi_Q}
+\\&= 
+	n 
+	\Bra{\Phi_P}
+	    \hat{h}_{1} 
+	 \Ket{\Phi_Q}.
+\end{align*}
+To recapitulate, this lemma states that since determinants do not distinguish between identical electrons, matrix elements of $\hat{h(1)}$ will be indistinguishable from $\hat{h(2)}$, $\hat{h(3)}$, etc. So if $\boldh$ is a one-electron operator acting on electrons $1,...,n$, we need only calculate the expectation value of $\hat{h}_1$ and multiply times $n$.
+\newpage
+
+%  Lemma for 2-particle operators
+\subsection{Lemma for 2-particle operators}
+{\it Statement}: For a two-electron operator \boldg,  \\
+\begin{equation}
+   \Bra{\Phi_P} \, 
+      \suml^n_{j<k} 
+      \hat{g}_{jk} \, 
+   \Ket{\Phi_Q} 
+= 
+   \frac{n(n-1)}{2} 
+   \Bra{\Phi_P} \,
+      \hat{g}_{12} \, 
+   \Ket{\Phi_Q} \,\, 
+   \forall  \, P, \, Q. 
+\end{equation}
+{\it Proof}:
+\begin{align*}
+\intertext{By the same logic as 1.1.1, we use the interchangeability of dummy variables and antisymmetry of determinants.}
+   \int 
+      \mathrm{d}(1,2 ... j,k ... n) \,  
+      \Phi_P^* (1,2 ... j,k ... n) \, 
+         \hat{g} (j,k)& \, 
+      \Phi_Q (1,2 ... j,k ... n) = 
+\\&=  
+   \int 
+      \mathrm{d}(j,k ... 1,2... n) \, 
+         \Phi_P^* (j,k ... 1,2... n) \, 
+            \hat{g}_{12} \, 
+         \Phi_Q (j,k ... 1,2 ... n) 
+\intertext{Since dummy variables are interchangeable in integration,}
+&= 
+   \int 
+      \mathrm{d}(1,2 ... j,k ... n)  
+      \Phi_P^* (j,k ... 1,2... n)\, 
+         \hat{g}_{12} \, 
+      \Phi_Q (j,k ... 1,2 ... n) 
+\\&= 
+   -
+   \int 
+      \mathrm{d}(1,2 ... j,k ... n)  
+      \Phi_P^* (j,2 ... 1,k... n)\, 
+         \hat{g}_{12} \, 
+      \Phi_Q (j,k ... 1,2 ... n) 
+\\&= 
+   \int 
+      \mathrm{d}(1,2 ... j,k ... n)  
+      \Phi_P^* (1,2 ... j,k... n)\, 
+         \hat{g}_{12} \, 
+      \Phi_Q (j,k ... 1,2 ... n) 
+\\&= 
+   \int 
+      \mathrm{d}(1,2 ... j,k ... n)  
+      \Phi_P^* (1,2 ... j,k ... n)\, 
+         \hat{g}_{12} \,
+      \Phi_Q (1,2 ... j,k ... n) 
+\\
+\intertext{Rewriting in Dirac notation, what we have shown is that} 
+   \Bra{\Phi_p} 
+      \hat{g}_{jk} 
+   \Ket{\Phi_Q}  
+&= 
+   \Bra{\Phi_P}  
+      \hat{g}_{12} 
+   \Ket{\Phi_q}. 
+\\
+\intertext{We can easily apply this result to the sum over all distinct pairs of electrons in the system:}
+   \Bra{\Phi_P} 
+      \suml_{j<k}^n 
+      \hat{g}_{jk} 
+   \Ket{\Phi_Q}  
+&= 
+   \suml_{j<k}^n 
+   \Bra{\Phi_P}  
+      \hat{g}_{jk} 
+   \Ket{\Phi_Q}  
+\\&= 
+   \suml_{j<k}^n 
+   \Bra{\Phi_P} 
+       \hat{g}_{12} 
+    \Ket{\Phi_Q} 
+\\&= 
+   \frac{n(n-1)}{2} 
+   \Bra{\Phi_P}  
+      \hat{g}_{12} 
+   \Ket{\Phi_Q}.
+\end{align*}
+In words, this lemma states that since the electrons in a determinant are indistinguishable, each of the terms in the sum over pairs of indices $j$ and $k$ will give the same result. Therefore we can replace $\hat{g}_{ij}$ with $\hat{g}_{12}$ and multiply times the total number of pairs of electrons, which is $\frac{n(n-1)}{2}$.
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%    1-ELECTRON PROOFS         %%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{1-particle operator proofs (1st quantization)}
+
+%%%%%    Same determinant
+\subsection{Same determinant}
+To show: $\bra{\Phi}\boldh \ket{\Phi} = \suml_i \bra{\psi_i} \hat{h}\ket{\psi_i}$.
+\begin{align*}
+\intertext{Expanding the determinants $\Phi$ in terms of the permutation operator,}
+   \Bra{\Phi} 
+      \boldh 
+   \Ket{\Phi} 
+&= 
+   \frac{1}{n!} 
+   \Bra{\suml_{\pi}^{n!}(-1)^{p_{\pi}}\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)} 
+      \suml_{k=1}^{n} 
+      \hat{h} (k)
+    \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}}\pmt_{\sg} \left(\psi_1(1) ... \psi_n(n)\right)} 
+\\&= 
+   \frac{1}{n!}\suml_{\pi,\sg}^{n!}(-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)}
+      \suml_{k=1}^{n} 
+      \hat{h} (k) 
+   \Ket{ \pmt_{\sg} \left(\psi_1(1) ... \psi_n(n)\right)}
+\intertext{By lemma 2.1,}
+&= 
+   \frac{n}{n!}
+   \suml_{\pi,\sg}^{n!}(-1)^{p_{\pi}+p_{\sg}} 
+      \Bra{\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)} 
+         \hat{h}_{1} 
+      \Ket{ \pmt_{\sg} \left(\psi_1(1) ... \psi_n(n)\right)}
+\intertext{Next apply orthogonality of the spin orbitals: In the integration over electrons 2,3,...$n$, we will obtain zero unless all $n-1$ of these electrons occupy the same spin orbitals in $\pmt_{\pi}$ as they do in $\pmt_{\sg}.$ By the pigeon-hole principle, then, electron 1 must occupy the same spin orbital in both permutations as well. In other words, $\pmt_{\sg} = \pmt_{\pi}$.}
+&= 
+   \frac{1}{(n-1)!}
+   \suml_{\pi,\sg}^{n!}
+    \delta_{\pi,\sg} \,
+   (-1)^{p_{\pi}+p_{\sg}} 
+      \Bra{\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)} 
+         \hat{h}_{1} 
+      \Ket{ \pmt_{\sg} \left(\psi_1(1) ... \psi_n(n)\right)}
+\\
+&= 
+   \frac{1}{(n-1)!}
+   \suml_{\pi}^{n!}
+   (-1)^{2p_{\pi}} 
+      \Bra{\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)} 
+         \hat{h}_{1} 
+      \Ket{ \pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)}
+\\
+&= 
+   \frac{1}{(n-1)!}
+   \sum\limits_{k=1}^n
+   \Braket{ \psi_k(1)  | \hat{h}_1 | \psi_k(1) }
+   \suml_{\rho}^{(n-1)!}
+      \Braket{\pmt_{\rho} \left(\psi_1(2) ...\no{\psi_k(1)} ...  \psi_n(n)\right) |  \pmt_{\rho} \left(\psi_1(2) ... \no{\psi_k(1)} ... \psi_n(n)\right)}
+\\
+%&= 
+%   \frac{1}{(n-1)!}
+%   \suml_{i=1}^{n!} (-1)^{2p_{\pi}} 
+%   \Bra{\pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)} 
+%         \hat{h}_{1} 
+%      \Ket{ \pmt_{\pi} \left(\psi_1(1) ... \psi_n(n)\right)}
+%\\&= 
+%   \frac{1}{(n-1)!} 
+%   \suml_{k=1}^{n} 
+%      \Bra{\psi_k (1)} 
+%         \hat{h}_1 
+%      \Ket{\psi_k (1)} 
+%   \suml_{i=1}^{(n-1)!}  
+%   \Braket{\pmt_{\pi} \left(\psi_1(1) ... \no{\psi_k(k)} ... \psi_n(n)\right)| \pmt_{\pi} \left(\psi_1(1) ...  \no{\psi_k(k)} ... \psi_n(n)\right)}
+\intertext{Since the basis is orthonormal, all of the nonzero overlap integrals will introduce a factor of 1.}
+&= 
+   \frac{1}{(n-1)!} 
+   \suml_ {k=1}^{n} 
+   \Bra{\psi_k (1)} 
+      \hat{h}_1 
+   \Ket{\psi_k (1)} 
+   \suml_{i=1}^{(n-1)!} \pmt_{\rho} (\dt_{11} \dt_{22} ... \no{\dt_{kk}} ... \dt_{nn} ) 
+\\&= 
+   \frac{1}{(n-1)!} 
+   \suml_{k=1}^{n} 
+   \Bra{\psi_k (1)} 
+      \hat{h}_1 
+   \Ket{\psi_k (1)} \, 
+   \suml_{i=1}^{(n-1)!} (1)
+\\&=					  
+   \frac{1}{(n-1)!} 
+   \suml_{k=1}^{n} 
+   \Bra{\y_k (1)} 
+      \hat{h}_1 
+   \Ket{\y_k (1)} \, (n-1)! 
+\\&= 
+   \suml_{k=1}^{n} 
+   \Bra{\y_k } 
+      \hat{h} 
+   \Ket{\y_k }  \\ \qed
+\end{align*}
+
+\newpage
+
+%%%%%   Singly excited
+\subsection{Singly excited determinant}
+To show: $\bra{\F}\boldh \ket{\F_i^a} = \bra{\y_i} \hat{h}\ket{\y_a}$.
+\begin{align*}
+\intertext{Expanding $\Phi$ in terms of the permutation operator,}
+   \Bra{\F} 
+      \boldh 
+   \Ket{\F_i^a} 
+&= 
+   \frac{1}{n!} 
+   \Bra{\suml_{\pi}^{n!} (-1)^{p_{\pi}} \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_n(n))} 
+      \suml_{k=1}^{n} 
+      \hat{h} (k) 
+   \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}} \pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_n(n))} 
+\\&= 
+   \frac{1}{n!}
+   \suml_{\pi,\sg}^{n!}(-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi} \left(\psi_1(1) ...\psi_i(i) ... \psi_n(n) \right)}
+      \suml_{k=1}^{n} 
+      \hat{h} (k) 
+   \Ket{ \pmt_{\sg} \left(\psi_1(1) ... \psi_a(i) ...\psi_n(n)\right)}
+\intertext{By lemma 2.1,}
+&= 
+   \frac{n}{n!}
+   \suml_{\pi,\sg}^{n!}(-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi} \left(\psi_1(1) ...\psi_i(i) ... \psi_n(n) \right)} 
+      \hat{h}_{1} 
+   \Ket{ \pmt_{\sg} \left(\psi_1(1) ... \psi_a(i) ...\psi_n(n)\right)}
+\\
+\intertext{Now we employ orthogonality of the spin orbitals. Note that spin orbitals $\psi_i$ in the first determinant and $\psi_a$ in the second determinant are each orthogonal to every other spin orbital in the opposite determinant. This means that any integral containing the overlap $\braket{\psi_i (j) | \psi_k (j)}$ or $\braket{\psi_k (j) | \psi_a (j)}$ will vanish for electron j in any possible $\psi_k$. The only way to avoid this is to have electron 1 in orbital $\psi_i$ in the first determinant and $\psi_a$ in the second determinant.}
+&= 
+   \frac{1}{(n-1)!}
+   \suml_{\pi,\sg}^{(n-1)!}(-1)^{p_{\pi}+p_{\sg}} 
+   \Braket{\pmt_{\pi} \left(\psi_1(2) ...\cancel{\psi_i(1)}...\psi_n(n)\right) | \pmt_{\sg} \left(\psi_1(2)...\cancel{\psi_a(1)} ...\psi_n(n)\right) } 
+   \Bra{\psi_i (1)} 
+      \hat{h}_1 
+   \Ket{\psi_a (1)} 
+\\
+\intertext{Because the spin orbitals are orthonormal, each integral will vanish unless $\pmt_{\pi} = \pmt_{\sg}$.}
+&= 
+   \Bra{\psi_i (1)} 
+      \hat{h}_1 
+   \Ket{\psi_a (1)} \frac{1}{(n-1)!}
+   \suml_{r=1}^{(n-1)!}(-1)^{2p_{\pi}}
+   \Braket{\pmt_{\pi} \left(\psi_1(1) ...\cancel{\psi_i(i)}...\psi_n(n)\right)|  \pmt_{\pi} \left(\psi_1(1)...\cancel{\psi_a(i)} ...\psi_n(n)\right) }  
+\\&= 
+   \Bra{\y_i (1)} 
+      \hat{h}_1 
+   \Ket{\y_a (1)}  
+   \frac{1}{(n-1)!}
+   \suml_{r=1}^{(n-1)!} 
+   \pmt_{\pi} (\dt_{11}\dt_{22}...\no{\dt_{ia}}...\dt_{nn} ) 
+\\&= 
+   \Bra{\y_i (1)} 
+      \hat{h}_1 
+   \Ket{\y_a (1)} 
+   \frac{1}{(n-1)!}
+   \suml_{r=1}^{(n-1)!} 
+   1 
+\\&=
+   \Bra{\y_i (1)} 
+      \hat{h}_1 
+   \Ket{\y_a (1)}  
+   \frac{1}{(n-1)!} \, 
+   (n-1)! 
+\\&= 
+   \Bra{\y_i} 
+      \hat{h}
+   \Ket{\y_a}
+\\ \qed
+\end{align*}
+
+\newpage
+
+%%%%%   Doubly excited
+\subsection{Doubly excited determinant}
+To show: $\bra{\Phi}\boldh \ket{\Phi_{ij}^{ab}} = 0$.
+\begin{align*}
+\intertext{Expanding $\Phi$ in terms of the permutation operator,}
+   \Bra{\F} 
+      \boldh 
+   \Ket{\F_{ij}^{ab}} &= \\
+=& 
+   \frac{1}{n!} 
+   \Bra{\suml_{\pi}^{n!} (-1)^{p_{\pi}} \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_j(j)... \psi_n(n))} 
+      \suml_{\pi}^{n} 
+      \hat{h} (k) 
+   \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}} \pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} \\
+=&
+   \frac{1}{n!}\ \sum\limits_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+    \Bra{ \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_j(j)...\psi_n(n))} 
+       \suml_{\pi}^{n} 
+       \hat{h} (k) 
+    \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} \\
+\intertext{By lemma 2.1,}
+=&
+   \frac{n}{n!}
+   \suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{ \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_j(j)... \psi_n(n))} 
+      \hat{h}_{1} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} \\
+\intertext{Now by the same logic used in section 3.2, any integral containing the overlap $\braket{\psi_i (j) | \psi_k (j)}$ or $\braket{\psi_k (j) | \psi_a (j)}$ will vanish for electron j in any possible $\psi_k$. Again the only way to avoid this is to have electron 1 in orbital $\psi_i$ in the first determinant and $\psi_a$ in the second determinant. }
+=&
+   \frac{1}{(n-1)!}
+   \suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Braket{\pmt_{\pi}(\psi_1(3) ... \cancel{\psi_i (1)} ... \psi_j(2)...\psi_n(n))| \pmt_{\sg}(\psi_1(3) ...\cancel{\psi_a(1)} ...\psi_b(2)...\psi_n(n))} 
+   \Bra{\psi_i} 
+      \hat{h} 
+   \Ket{\psi_a} \\
+\intertext{However, this time there are still two spin orbitals $\psi_j$ in $\pmt_{\pi}$ and $\psi_b$ in  $\pmt_{\sg}$ such that $\braket{\psi_j (j) | \psi_k (j)}$ or $\braket{\psi_k (j) | \psi_b (j)}$ will vanish for electron j in any other $\psi_k$ in the determinant. Therefore, no matter how we permute these two determinants, all $(n-1)!^2$ integrals will have at least one zero overlap that causes it to vanish.}
+=& \, \, 
+0 
+\\ \qed
+\end{align*}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%    2-ELECTRON PROOFS         %%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{2-particle operator proofs (1st quantization)}
+
+%%%%%    Same determinant
+\subsection{Same determinant}
+\begin{align*}
+\intertext{To show: $ \bra{\Phi}\boldg (i,j)\ket{\Phi} = \suml_{i<j} \left( \bra{\psi_i \psi_j}\hat{g}_{ij} \ket{\psi_i \psi_j} -  \bra{\psi_i \psi_j}\hat{g}_{ij} \ket{\psi_j \psi_i} \right) $.}
+   \Bra{\Phi}  \, \boldg \, \Ket{\Phi} 
+=&   
+    \frac{1}{n!} 
+    \Bra{\suml^{n!}_{\pi} 
+        (-1)^{p_{\pi}}\pmt_{\pi} (\psi_1(1) ... \psi_n(n))} \, 
+        \suml^n_{i<j} \, \hat{g}_{ij} \ 
+     \Ket{\suml^{n!}_{\sg} (-1)^{p_{\sg}}\pmt_{\sg} (\psi_1(1) ... \psi_n(n))} 
+\\
+=& 
+   \frac{1}{n!} \suml^{n!}_{\pi, \sg} 
+    (-1)^{p_{\pi} + p_{\sg}}\,  \, 
+   \Bra{\pmt_{\pi} (\psi_1(1) ... \psi_n(n))} \, 
+      \suml^n_{i<j} \, \hat{g}_{ij} \ 
+   \Ket{\pmt_{\sg} (\psi_1(1) ... \psi_n(n))}  
+\\
+=& 
+    \frac{n(n-1)}{2n!} 
+    \suml^{n!}_{\pi,\sg} (-1)^{p_{\pi} + p_{\sg}}  \, 
+    \Bra{\pmt_{\pi} (\psi_1(1) ... \psi_n(n))} \, 
+        \hat{g}_{12} \ 
+     \Ket{\pmt_{\sg} (\psi_1(1) ... \psi_n(n))} \, 
+     \mbox{ (by lemma 2.2).} 
+ \\
+\intertext{Since $\hat{g}$ only acts on electrons 1 and 2, we can separate this integral into the sum over all permutations of electrons 1 and 2 multiplied times the sum over all permutations of electrons 3...n in the remaining orbitals:}
+=& 
+   \frac{1}{2(n-2)!}\suml_{i<j}^n
+   \Bra{\suml_{\mu}^{2!} (-1)^{p_{\mu}} \pmt_{\mu}(\psi_i(1)\psi_j(2))} 
+      \hat{g}_{12}
+   \Ket{\suml_{\nu}^{2!} (-1)^{p_{\nu}}\pmt_{\nu} (\psi_i(1)\psi_j(2))} 
+\\
+&\cdot 
+    \suml^{(n-2)!}_{\pi, \sg} (-1)^{p_{\pi} + p_{\sg}}  \, 
+    \Braket{\pmt_{\pi} (\psi_1(3)...\no{\psi_i(1)}...\no{\psi_j(2)} ...\psi_n(n)) | \pmt_{\sg} (\psi_1(3) ...  \no{\psi_i(1)} ... \no{\psi_j(2)} ...\psi_n(n))}  
+ \\
+\intertext{Because the basis set is orthonormal, each overlap integral after the last two summands will vanish unless the permutations $\pmt_{\pi}$ and $\pmt_{\sg}$ are identical, so let $\pi= \sg$.}
+=& 
+   \frac{1}{2(n-2)!} 
+   \suml_{i<j}^n 
+   \suml_{\mu,\nu}^{4} 
+   (-1)^{p_{\mu}+p_{\nu}}
+   \Bra{\pmt_{\mu}(\psi_i(1)\psi_j(2))} 
+      \hat{g}_{12}
+   \Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))} \suml^{(n-2)!}_{\pi}  (-1)^{2p_{\pi}} \, \pmt_{\pi} ( \delta_{11} ... \no{\delta_{ii}}...\no{\delta_{jj}} ... \delta_{nn} ) \\
+=& \frac{(n-2)!}{2(n-2)!}  \suml_{i<j}^n \suml_{\mu,\nu}^{4} (-1)^{p_{\mu}+p_{\nu}}\Bra{\pmt_{\mu}(\psi_i(1)\psi_j(2))} \hat{g}_{12}\Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))} \\
+\intertext{Now let's write explicitly the two permutations introduced by $\pmt_{\mu}$.}
+=& 
+   \frac{1}{2}  
+   \suml_{i<j}^n 
+   \suml_{\nu}^{2} 
+   (-1)^{p_{\nu}} 
+   [\Bra{\psi_i(1)\psi_j(2)} 
+      \hat{g}_{12}
+   \Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))} 
+   -  
+   \Bra{\psi_i(2)\psi_j(1)} 
+      \hat{g}_{12}
+   \Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))}]
+\\
+=& 
+    \frac{1}{2}  
+    \suml_{i<j}^n 
+    \suml_{\nu}^{2} (-1)^{p_{\nu}} 
+    [
+       \Bra{\psi_i(1)\psi_j(2)} 
+          \hat{g}_{12}
+       \Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))} 
+    - 
+       \Bra{-\psi_i(1)\psi_j(2)} 
+          \hat{g}_{12}
+       \Ket{ \pmt_{\nu} (\psi_i(1)\psi_j(2))}]
+\\
+=& 
+   \frac{1}{2}  
+   \suml_{i<j}^n 
+   \suml_{\nu}^{2} 
+   (-1)^{p_{\nu}} 
+\cdot 
+   2 \Bra{\psi_i(1)\psi_j(2)} 
+      \hat{g}_{12}
+   \Ket{ \pmt_{\nu}  (\psi_i(1)\psi_j(2))} \\
+\intertext{Now let's write explicitly the two permutations introduced by $\pmt_{\nu}$.}
+=&  
+   \suml_{i<j}^n 
+   \Bra{\psi_i(1)\psi_j(2)} 
+      \hat{g}_{12}
+   \Ket{\psi_i(1)\psi_j(2)} 
+-  
+   \Bra{\psi_i(1)\psi_j(2)} 
+      \hat{g}_{12}
+   \Ket{\psi_i(2)\psi_j(1)} \\
+=&  
+   \suml_{i<j}^n 
+   \Bra{\psi_i\psi_j} 
+      \hat{g}_{12}
+   \Ket{\psi_i\psi_j} 
+-  
+   \Bra{\psi_i\psi_j} 
+      \hat{g}_{12}
+   \Ket{\psi_j \psi_i} 
+\qed 
+\end{align*}
+\newpage
+
+%%%%%   Singly excited
+\subsection{Singly excited determinant}
+\vspace{-0.5cm}
+\begin{align*}
+\intertext{To show: $\bra{\Phi}\boldg\ket{\Phi_i^a} = \suml_{j}^n \left( \bra{\psi_i \psi_j} \hat{g}_{ij}\ket{\psi_a \psi_j} - \bra{\psi_i \psi_j} \hat{g}_{ij}\ket{\psi_j \psi_a} \right)$.}
+   \Bra{\Phi}   \, 
+      \boldg \, 
+   \Ket{\Phi_i^a} 
+=& 
+   \frac{1}{n!} 
+      \Bra{\suml_{\pi}^{n!} (-1)^{p_{\pi}} \pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_n(n))}
+         \suml_{i<j}^{n} 
+         \hat{g}_{ij} 
+      \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}} \pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_n(n))} \\
+=& 
+   \frac{1}{n!}\suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_n(n))} 
+      \suml_{i<j}^{n} 
+      \hat{g}_{ij} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_n(n))} \\
+=& 
+   \frac{n(n-1)}{2n!}
+   \suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_n(n))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_n(n))} \\
+\intertext{First we apply the orthogonality condition of the spin orbitals. Since $\psi_i$ and $\psi_a$ are orthogonal, it must be that either electron 1 or 2 occupies both $\psi_i$ on the left and $\psi_a$ on the right. Suppose electron 1 is occupying $\psi_i$ on the left side of the integral. Then electron 2 can occupy any other $\psi_j$ in the determinant, or vice versa.}
+=& 
+   \frac{1}{2(n-2)!} 
+   \suml_j^n 
+      \Bra{\pmt_{12} \psi_i (1) \psi_j (2)} 
+         \hat{g}_{12} 
+      \Ket{ \pmt_{12} \psi_a (1) \psi_j (2)}  \\
+\cdot& 
+   \suml_{\pi,\sg}^{(n-2)!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Braket{\pmt_{\pi}(\psi_1(3) ...\no{\psi_i(1)} ...\no{\psi_j(2)}... \psi_n(n)) | \pmt_{\sg}(\psi_1(3) ...\no{\psi_a(1)} ...\no{\psi_j(2)}... \psi_n(n))}
+\intertext{Now this second term is simply a product of overlap integrals of $(n-2)$ electrons; these will vanish except in the permutations which integrate over identical spin orbitals, i.e., when $\pmt_{\pi} = \pmt_{\sg}$.}
+=& 
+   \frac{1}{2(n-2)!} 
+   \suml_j^n \suml_{\mu,\nu}^{4} (-1)^{p_{\mu}+p_{\nu}} 
+   \Bra{\pmt_{\mu}(\psi_i (1) \psi_j (2))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\nu}(\psi_a (1) \psi_j (2))} \, \suml_r^{(n-2)!} \, (-1)^{2p_{\pi}} \pmt_{\pi} ( \delta_{11}...\no{\delta_{ia}}... \delta_{nn}) \\
+=& 
+   \frac{1}{2(n-2)!} 
+   \suml_j^n \suml_{\mu,\nu}^{4} 
+      (-1)^{p_{\mu}+p_{\nu}} 
+   \Bra{\pmt_{\mu}(\psi_i (1) \psi_j (2))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\nu}(\psi_a (1) \psi_j (2))} \, 
+   \suml_r^{(n-2)!} (1) \\
+=&  
+   \frac{1}{2(n-2)!} (n-2)! 
+   \suml_j 
+   \suml_{\mu,\nu}^{4} 
+      (-1)^{p_{\mu}+p_{\nu}} 
+   \Bra{\pmt_{\mu}(\psi_i (1) \psi_j (2))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\nu}(\psi_a (1) \psi_j (2))} \\
+=&\frac{1}{2} \suml_j^n \suml_{\mu,\nu}^{4} (-1)^{p_{\mu}+p_{\nu}} \Bra{\pmt_{\mu}(\psi_i (1) \psi_j (2))} \hat{g}_{12} \Ket{\pmt_{\nu}(\psi_a (1) \psi_j (2))}
+\intertext{Now let's write out explicitly all the permutations introduced by $\pmt_{\mu}$.}
+=&\frac{1}{2} \suml_j^n \suml_{\nu}^{2} (-1)^{p_{\nu}}[\Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_j (2))} - \Bra{\psi_i (2) \psi_j (1)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_j (2))} ] \\
+=&\frac{1}{2} \suml_j^n \suml_{\nu}^{2} (-1)^{p_{\nu}}[\Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_j (2))} - \Bra{-\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_j (2))} ]  \\
+=&\frac{1}{2} \suml_j^n \suml_{\nu}^{2} (-1)^{p_{\nu}} \cdot 2 \Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_j (2))}  \\
+\intertext{Now we can write out explicitly all the permutations introduced by $\pmt_{\nu}$.}
+=&\suml_j^n [\Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\psi_a (1) \psi_j (2)}- \Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\psi_a (2) \psi_j (1)} ] \\
+=& \suml_j^n \left( \bra{\psi_i \psi_j} \hat{g}_{ij}\ket{\psi_a \psi_j} - \bra{\psi_i \psi_j} \hat{g}_{ij}\ket{\psi_j \psi_a} \right)
+\end{align*}
+
+
+%%%%%   Doubly excited
+\subsection{Doubly excited determinant}
+To show: $\bra{\Phi}\boldg\ket{\Phi_{ij}^{ab}} = \bra{\psi_i \psi_j} \hat{g}_{12}\ket{\psi_a \psi_b} - \bra{\psi_i \psi_j} \hat{g}_{12}\ket{\psi_b \psi_a}$.
+\begin{align*}
+\intertext{Expanding $\Phi$ in terms of the permutation operator,}
+   \Bra{\Phi}   \, \boldg \, \Ket{\Phi_{ij}^{ab}}  
+=& 
+   \frac{1}{n!} 
+   \Bra{\suml_{\pi}^{n!} 
+      (-1)^{p_{\pi}} 
+      \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_j(j)... \psi_n(n))} \suml_{i<j}^{n} 
+      \hat{g}_{ij} 
+   \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}} \pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} 
+\\
+=& 
+   \frac{1}{n!}
+   \suml_{\pi,\sg}^{n!} 
+   (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_j(j)... \psi_n(n))} 
+      \suml_{i<j}^{n} 
+      \hat{g}_{ij} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} 
+\\
+\intertext{By lemma 2.2,}
+=& 
+   \frac{n(n-1)}{2n!}
+   \suml_{\pi,\sg}^{n!} 
+   (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_j(j)... \psi_n(n))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} 
+\\
+=& 
+   \frac{1}{2(n-2)!}
+   \suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_j(j)... \psi_n(n))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_n(n))} 
+\\
+\intertext{Now $\psi_i$ and $\psi_j$ in $\pmt_{\pi}$ have a zero overlap with each orbital in $\pmt_{\sg}$. Likewise, orbitals  $\psi_a$ and $\psi_b$ in $\pmt_{\sg}$ have a zero overlap with each orbital in $\pmt_{\pi}$. Therefore it must be that electrons 1 and 2 must occupy $\psi_i$ and $\psi_j$ in $\pmt_{\pi}$  and $\psi_a$ and $\psi_b$ in $\pmt_{\sg}$, in no particular order.}
+=& 
+   \frac{1}{2(n-2)!} 
+   \sum\limits_{\mu,\nu}^4
+   \Bra{\pmt_{\mu} \psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{ \pmt_{\nu} \psi_a (1) \psi_b (2)} \\
+&\cdot 
+   \suml_{\pi,\sg}^{(n-2)!} 
+   (-1)^{p_{\pi}+p_{\sg}} 
+   \Bra{\pmt_{\pi}(\psi_1(1) ...\no{\psi_i(i)}... \no{\psi_j(j)}... \psi_n(n))} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\sg}(\psi_1(1) ...\no{\psi_a(i)} ... \no{\psi_b(j)} ... \psi_n(n))} 
+\\
+\intertext{Because of orthormality, we again let $\pmt_{\pi} = \pmt_{\sg}$.}
+=& 
+    \frac{1}{2(n-2)!} 
+    \suml_{\mu,\nu}^{4} 
+    (-1)^{p_{\mu}+p_{\nu}}  
+    \Bra{\pmt_{\mu} \psi_i (1) \psi_j (2)} 
+       \hat{g}_{12} 
+    \Ket{ \pmt_{\nu} \psi_a (1) \psi_b (2)} \suml_{\pi,\sg}^{(n-2)!} \pmt_{\pi} ( \delta_{11}...\delta_{ia} ... \delta_{jb} ... \delta_{nn} ) 
+\\
+=& 
+   \frac{1}{2(n-2)!}
+   \suml_{\mu,\nu}^{4} 
+   (-1)^{p_{\mu}+p_{\nu}}  
+   \Bra{\pmt_{\mu} \psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{ \pmt_{\nu} \psi_a (1) \psi_b (2)}\suml_{\pi,\sg}^{(n-2)!} (1) 
+\\
+=& 
+   \frac{1}{2(n-2)!}
+   \suml_{\mu,\nu}^{4} 
+   (-1)^{p_{\mu}+p_{\nu}}  
+   \Bra{\pmt_{\mu} \psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{ \pmt_{\nu} \psi_a (1) \psi_b (2)} (n-2)! 
+\intertext{Now let's write out explicitly all the permutations introduced by $\pmt_{\mu}$.}
+=&
+   \frac{1}{2} 
+   \suml_{\nu}^{2} 
+   (-1)^{p_{\nu}}
+   [
+      \Bra{\psi_i (1) \psi_j (2)} 
+         \hat{g}_{12} 
+      \Ket{\pmt_{\nu} (\psi_a (1) \psi_b (2))} 
+   - 
+      \Bra{\psi_i (2) \psi_j (1)} 
+         \hat{g}_{12} 
+      \Ket{\pmt_{\nu} (\psi_a (1) \psi_b (2))} 
+] 
+\\
+=&
+   \frac{1}{2} 
+   \suml_{\nu}^{2} 
+   (-1)^{p_{\nu}}
+   [
+      \Bra{\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_b (2))} 
+   - 
+      \Bra{-\psi_i (1) \psi_j (2)} \hat{g}_{12} \Ket{\pmt_{\nu} (\psi_a (1) \psi_b (2))} 
+   ] 
+\\
+=&
+   \frac{1}{2}  
+   \suml_{\nu}^{2} 
+   (-1)^{p_{\nu}} 
+\cdot 
+   2 \Bra{\psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{\pmt_{\nu} (\psi_a (1) \psi_b (2))}
+\\
+\intertext{Now we can write out explicitly all the permutations introduced by $\pmt_{\nu}$.}
+=& 
+   \Bra{\psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{\psi_a (1) \psi_b (2)} 
+- 
+   \Bra{\psi_i (1) \psi_j (2)} 
+      \hat{g}_{12} 
+   \Ket{\psi_a (2) \psi_b (1)}  \\[2ex]
+=& 
+   \Bra{\psi_i \psi_j} 
+      \hat{g}_{12} 
+   \Ket{\psi_a \psi_b} 
+- 
+   \Bra{\psi_i \psi_j } 
+      \hat{g}_{12} 
+   \Ket{\psi_a \psi_b}  \ \ \blacksquare.
+\end{align*}
+
+
+%%%%%   Triply excited
+\subsection{Triply excited determinant}
+To show: $\Bra{\Phi}\boldg\Ket{\Phi_{ijk}^{abc}} = 0$.
+\begin{align*}
+\Bra{\Phi}&   \, \boldg \, \Ket{\Phi_{ijk}^{abc}} = \\
+=& \frac{1}{n!} \Bra{\suml_{\pi}^{n!} (-1)^{p_{\pi}} \pmt_{\pi}(\psi_1(1) ...\psi_i(i) ... \psi_j(j)... \psi_k(k)... \psi_n(n))} \suml_{i<j}^{n} \hat{g}_{ij} \Ket{\suml_{\sg}^{n!}(-1)^{p_{\sg}} \pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j) ... \psi_c(k) ... \psi_n(n))} \\
+=& \frac{1}{n!}\suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_j(j)... \psi_k(k)... \psi_n(n))} \suml_{i<j}^{n} \hat{g}_{ij} \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j)... \psi_c(k) ... \psi_n(n))} \\
+\intertext{By lemma 2.2,}
+=& \frac{n(n-1)}{2n!}\suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} \Bra{\pmt_{\pi}(\psi_1(1) ...\psi_i(i)... \psi_j(j)... \psi_k(k)... \psi_n(n))} \suml_{i<j}^{n} \hat{g}_{ij} \Ket{\pmt_{\sg}(\psi_1(1) ...\psi_a(i) ... \psi_b(j)... \psi_c(k) ... \psi_n(n))} \\
+=& \frac{1}{2(n-2)!}\suml_{\pi,\sg}^{n!} (-1)^{p_{\pi}+p_{\sg}} \Bra{\pmt_{\pi}(\psi_1(1)...\psi_i(i)... \psi_j(j)... \psi_k(k)... \psi_n(n))} \suml_{i<j}^{n} \hat{g}_{ij} \Ket{\pmt_{\sg}(\psi_1(1)...\psi_a(i) ... \psi_b(j)... \psi_c(k) ... \psi_n(n))} \\
+\intertext{Since $\psi_i$ and $\psi_j$ in $\pmt_{\pi}$ have a zero overlap with each orbital in $\pmt_{\sg}$ and $\psi_a$ and $\psi_b$ in $\pmt_{\sg}$ have a zero overlap with each orbital in $\pmt_{\pi}$, it must be that electrons 1 and 2 must occupy $\psi_i$ and $\psi_j$ in $\pmt_{\pi}$  and $\psi_a$ and $\psi_b$ in $\pmt_{\sg}$, in no particular order.}
+=& \frac{1}{2(n-2)!}\suml_{\mu,\nu}^{4} (-1)^{p_{\mu}+p_{\nu}}  \Bra{\pmt_{\mu}(\psi_i (1) \psi_j (2))} \hat{g}_{12} \Ket{ \pmt_{\nu}(\psi_a (1) \psi_b (2))} \\
+&\cdot \suml_{\pi,\sg}^{(n-2)!} (-1)^{p_{\pi}+p_{\sg}} \Bra{\pmt_{\pi}(\psi_1(1) ...\no{\psi_i(i)}... \no{\psi_j(j)}... \psi_k(k) ... \psi_n(n))} \hat{g}_{12} \Ket{\pmt_{\sg}(\psi_1(1) ...\no{\psi_a(i)} ... \no{\psi_b(j)} ... \psi_c(k) ... \psi_n(n))} \\
+\intertext{However, this time there are still two spin orbitals $\psi_k$ in $\pmt_{\pi}$ and $\psi_c$ in $\pmt_{\sg}$ that $\braket{\psi_k (i) | \psi_i (i)}$ or $\braket{\psi_i (i) | \psi_c (i)}$ will vanish for electron in any $\psi_i$ in the opposite determinant. Therefore, no matter how we permute these two determinants, all $(n-1)!^2$ integrals will have at least one zero overlap that causes it to vanish.}
+&= 0 \ \ \blacksquare.
+\end{align*}
+
+
+%\section{Derivations in 2nd quantization formalism}
+
+
+\end{document}
