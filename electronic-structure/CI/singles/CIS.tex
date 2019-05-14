@@ -1,0 +1,375 @@
+\documentclass{article}
+\usepackage{mathtools}%includes amsmath
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{bm}
+\usepackage{xfrac}
+\usepackage{url}
+
+% shorthand
+\newcommand{\vsp}{\vspace{0.2cm}}
+\newcommand{\no}{\cancel}
+\renewcommand{\qed}{\ensuremath{\vsp \\ &\hspace{0.15cm} \blacksquare. \\}}
+\newcommand{\schrodinger}{\Schr{\"o}dinger}
+\newcommand{\abinitio}{{\it ab initio}}
+\newcommand{\ehf}{\ensuremath{E_{\mathrm{HF}}}}
+\newcommand{\he}{\ensuremath{\hat{H}_e}}
+\newcommand{\inter}{\intertext}
+
+% greek letters
+\renewcommand{\a}{\alpha}   % alpha
+\renewcommand{\b}{\beta}     % beta
+\newcommand{\g}{\gamma}  % gamma
+\newcommand{\G}{\Gamma}  
+\renewcommand{\d}{\delta}    %delta
+\newcommand{\D}{\Delta}     
+\newcommand{\e}{\epsilon}  %epsilon
+\newcommand{\ev}{\varepsilon}  %varepsilon
+\newcommand{\z}{\zeta}       %zeta
+\newcommand{\h}{\eta}        %eta
+\renewcommand{\th}{\theta}   %theta
+\newcommand{\Th}{\Theta}     %Theta
+\newcommand{\io}{\iota}      %iota
+\renewcommand{\k}{\kappa}    %kappa
+\newcommand{\la}{\lambda}    %lambda
+\newcommand{\La}{\Lambda}    %Lambda
+\newcommand{\m}{\mu}         %mu
+\newcommand{\n}{\nu}         %nu
+\newcommand{\p}{\rho}        %rho
+\newcommand{\si}{\sigma}     %sigma
+\newcommand{\siv}{\varsigma} %sigma*
+\newcommand{\Si}{\Sigma}     %Sigma
+\renewcommand{\t}{\tau}      %tau
+\newcommand{\up}{\upsilon}   %upsilon
+\newcommand{\f}{\phi}        %phi
+\newcommand{\F}{\Phi}        %Phi
+\newcommand{\x}{\chi}        %chi
+\newcommand{\Y}{\ensuremath{\Psi}}
+\newcommand{\y}{\ensuremath{\psi}}
+\newcommand{\w}{\ensuremath{\omega}}
+\newcommand{\W}{\ensuremath{\Omega}}
+
+\newcommand{\BPh}{\ensuremath{\Bra{\Phi}}}
+\newcommand{\KPh}{\ensuremath{\Ket{\Phi}}}
+
+% ornaments
+\renewcommand{\eth}{\ensuremath{^\text{th}}}
+\newcommand{\rst}{\ensuremath{^\text{st}}}
+\newcommand{\ond}{\ensuremath{^\text{nd}}}
+\newcommand{\dg}{\ensuremath{^\dagger}}
+\newcommand{\bigo}{\ensuremath{\mathcal{O}}}
+\newcommand{\tl}{\ensuremath{\tilde}}
+\newcommand{\op}[1]{\ensuremath{\hat{#1}}}
+
+%dots
+\newcommand{\ld}{\ensuremath{\ldots}}
+\newcommand{\cd}{\ensuremath{\cdots}}
+\newcommand{\vd}{\ensuremath{\vdots}}
+\newcommand{\dd}{\ensuremath{\ddots}}
+\newcommand{\hole}{\circ}
+\newcommand{\ptcl}{\bullet}
+\usepackage{stackengine}
+\newcommand{\GNO}[1]{\setstackgap{S}{0.7pt}\ensuremath{\Shortstack{\textbf{.} \textbf{.} \textbf{.}}#1\Shortstack{\textbf{.} \textbf{.} \textbf{.}}}}
+
+\begin{document}
+\section*{CIS Equations}
+For the Configuration Interaction method including only single excitations (CIS), we construct a Hamiltonian matrix in the basis of singly excited determinants to obtain a set of CIS energies.
+%\smallskip
+%%%%%%%%%%%%%%%%%%%%%%
+%%% 	MATRIX STRUCTURE 	%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{1. Hamiltonian Matrix Structure}
+\vspace{-0.4cm}
+\begin{align*}
+\inter{Recall that the electronic Hamiltonian in $\Phi$-normal order is:}
+\hat{H}_e &= \ehf + f_p^q \tl{a}_q^p + \tfrac{1}{4} \, \bar{g}_{pq}^{rs} \, \tl{a}_{rs}^{pq}
+\inter{The structure of the full configuration interaction (FCI) Hamiltonian matrix is:}
+\mathbf{H} &= [ \bra{\Phi_P} \he \ket{\Phi_Q}], \Phi_P, \Phi_Q \in \{\Phi, \Phi_i^a, \Phi_{ij}^{ab},  \Phi_{ijk}^{abc}, ...  \}. \\
+\inter{In the CI Singles (CIS) approximation, we truncate the determinant basis at single excitations which gives the Hamiltonian matrix the following form:}
+\mathbf{H} &= \begin{bmatrix}
+\BPh \he \KPh & \BPh \he \ket{\Phi_i^a} \\
+\bra{\Phi_i^a} \he \KPh & \bra{\Phi_i^a} \he \ket{\Phi_j^b} \\
+\end{bmatrix}
+\inter{Clearly $\BPh \he \KPh = $ \ehf, the Hartree-Fock energy of the system.}
+\mathbf{H} &= \begin{bmatrix}
+\ehf & \bra{\Phi} \he \ket{\Phi_i^a} \\
+\bra{\Phi_i^a} \he \ket{\Phi} & \bra{\Phi_i^a} \he \ket{\Phi_j^b} \\
+\end{bmatrix}
+\intertext{Furthermore, we can apply Brillouin's theorem to show that $\bra{\Phi_i^a} \he \ket{\Phi}  = \bra{\Phi_i^a} \he \ket{\Phi} = 0 \, \, \forall \, \, i,a$. }
+   \mathbf{H} 
+&= 
+   \begin{bmatrix}
+      \ \ehf           
+   & 
+      \mathbf{0} 
+   \\
+      \mathbf{0} 
+   & 
+      \bra{\Phi_i^a}
+          \he 
+       \ket{\Phi_j^b} 
+    \\
+\end{bmatrix} 
+\\
+%\inter{So we can see that in our basis $\Phi_P \in \{\Phi, \Phi_i^a \}$, }
+%\mathbf{H} \mathbf{c_0} &= \ehf \, \mathbf{c_0}, 
+%\inter{where $\mathbf{c_0}$ is the first basis vector, corresponding to \KPh. Thus $\KPh$ is an eigenstate of \he \, with eigenvalue \ehf.}
+\intertext{Now let's think about the matrix element $ \bra{\Phi_i^a}  \he \ket{\Phi_j^b}$, which we can represent in the second quantization formalism.}
+   \bra{\Phi_i^a} 
+      \he 
+   \ket{\Phi_j^b}
+&= 
+   \bra{\F}
+      \tl{a}_a^i
+      \he
+      \tl{a}_j^b
+   \ket{\F}
+\\
+&= \ehf \, \BPh \tl{a}_a^i \tl{a}_j^b \KPh + \BPh \tl{a}_a^i \left[f_p^q \tl{a}_q^p + \tfrac{1}{4} \, \bar{g}_{pq}^{rs} \, \tl{a}_{rs}^{pq} \right] \tl{a}_j^b \KPh \\
+\intertext{By Slater's first rule,}
+&= \ehf \, \d_{ij}\d_{ab} + \BPh \tl{a}_a^i \left[f_p^q \tl{a}_q^p + \tfrac{1}{4} \, \bar{g}_{pq}^{rs} \, \tl{a}_{rs}^{pq} \right] \tl{a}_j^b \KPh \\
+\inter{If we define an eigenvalue-shifted correlation Hamiltonian $\hat{H}_c = f_p^q \tl{a}_q^p + \tfrac{1}{4} \, \bar{g}_{pq}^{rs} \, \tl{a}_{rs}^{pq}$,}
+&= \ehf \, \d_{ij}\d_{ab} + \BPh \tl{a}_a^i \hat{H}_c \tl{a}_j^b \KPh
+\inter{And the corresponding Hamiltonian matrix becomes}
+\mathbf{H} &= \begin{bmatrix}
+\,\, \ehf           & \mathbf{0} \\
+\mathbf{0} & \bra{\Phi_i^a} \hat{H}_c \ket{\Phi_j^b} + \ehf \, \d_{ij}\d_{ab} \\
+\end{bmatrix} \\
+		     &= \begin{bmatrix}
+\,\, \mathbf{0}           & \mathbf{0} \\
+\,\, \mathbf{0} & \bra{\Phi_i^a} \hat{H}_c \ket{\Phi_j^b} \\
+\end{bmatrix} + \ehf \, \mathbf{I} \\
+&= \mathbf{\tl{H}} + \ehf \, \mathbf{I} \\
+\intertext{We have constructed an eigenvalue-shifted $\mathbf{\tl{H}}=\mathbf{H} - \ehf \mathbf{I}$ which corresponds to the operator $\hat{H}_c = \he - \ehf$. It has the same set of eigenstates as $\mathbf{H}$ but eigenvalues shifted down by \ehf. Since the first row and column are all zeros, we can clearly remove the first basis vector, which corresponds to the reference determinant $\F$, from the basis and diagonalize $\mathbf{\tl{H}}$ in the basis $\{\Phi_i^a \}$. Physically, this means that $\F$ is an eigenvector of $\hat{H}_c$ with eigenvalue 0, which means that the CIS correlation energy of the ground state $\F$ is 0. In other words, we will have to include higher excitations to observe correlation effects in the reference determinant.}
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% 	MATRIX ELEMENTS 	%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection*{2. Hamiltonian Matrix Elements}
+\vspace{-0.4cm}
+\begin{align*}
+\intertext{We'll write and solve for the matrix elements $\bra{\F_i^a} \hat{H}_c \ket{\F_j^b}$ in the second quantization formalism.}
+   \tl{\mathbf{H}}_{ijab} 
+&= 
+   \bra{\F} 
+      \tl{a}_a^i  \, 
+      \hat{H}_c \,  
+      \tl{a}_j^b 
+   \ket{\F} 
+\\
+&= 
+   f_p^q 
+   \bra{\F} 
+     \tl{a}_a^i\,
+     \tl{a}_q^p\,
+     \tl{a}_j^b 
+   \ket{\F}
++
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs} 
+   \bra{\F} 
+      \tl{a}_a^i\,
+      \tl{a}_{rs}^{pq}\,
+      \tl{a}_j^b 
+   \ket{\F}
+\\
+\intertext{Applying Wick's theorem for $\F$-normal ordered operators,}
+&= 
+   f_p^q
+   \left(
+      \no{
+         \bra{\F} 
+            \GNO{
+               \tl{a}_a^i  \, 
+               \tl{a}_q^p \,  
+               \tl{a}_j^b 
+            }
+         \ket{\F}
+      }
+   + 
+      \bra{\F} 
+         \GNO{
+            \overline{
+               \tl{a}_a^i  \, 
+               \tl{a}_q^p \,  
+               \tl{a}_j^b}}
+      \ket{\F} 
+   \right)
++ 
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left( 
+      \no{
+         \bra{\F} 
+            \GNO{
+               \tl{a}_a^i \, 
+               \tl{a}_{rs}^{pq} \,  
+               \tl{a}_j^b 
+            }
+         \ket{\F}
+      }
+   + 
+      \bra{\F} 
+         \GNO{
+            \overline{
+               \tl{a}_a^i  \, 
+               \tl{a}_{rs}^{pq} \,  
+               \tl{a}_j^b
+            }
+          }
+      \ket{\F}
+   \right)
+\\
+&= 
+   f_p^q
+   \left(
+      0 + \GNO{\overline{\tl{a}_a^i  \, \tl{a}_q^p \,  \tl{a}_j^b}}
+   \right) 
++ 
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left(
+      0+ \GNO{\overline{\tl{a}_a^i  \, \tl{a}_{rs}^{pq} \,  \tl{a}_j^b}}
+   \right)
+\\
+&= 
+   f_p^q
+   \left[
+      \GNO{ \tl{a}^{i \ptcl}_{a \hole} \tl{a}^{p \ptcl \ptcl}_{q \ptcl} \tl{a}^{b \hole}_{j \ptcl \ptcl} } + \GNO{ \tl{a}^{i \ptcl}_{a \circ} \tl{a}^{p \hole}_{q \hole \hole} \tl{a}^{b \hole \hole}_{j \ptcl} }
+   \right]
++ 
+    \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left[
+      \hat{P}^{(p/q)}_{(r/s)} (\GNO{\tl{a}_{a \hole}^{i \ptcl} \tl{a}^{p \ptcl \ptcl q \hole}_{r \hole \hole s \ptcl} \,  \tl{a}_{j \ptcl \ptcl}^{b \hole \hole}  } )
+   \right]
+\\
+&= 
+   f_p^q
+   \left[
+      \tl{a}^{i \ptcl p \ptcl \ptcl b \hole}_{a \hole q \ptcl j \ptcl \ptcl} + \tl{a}^{i \ptcl p \hole b \hole \hole}_{a \hole q \hole \hole j \ptcl}
+   \right] 
++ 
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left[
+      \hat{P}^{(p/q)}_{(r/s)} ( \tl{a}^{i \ptcl p \ptcl \ptcl q \hole b \hole \hole}_{a \hole r \hole \hole s \ptcl j \ptcl \ptcl}  )
+   \right] 
+\\
+&= 
+   f_p^q
+   \left[
+      \tl{a}^{i \ptcl p \ptcl \ptcl b \hole}_{q \ptcl j \ptcl \ptcl a \hole} + \tl{a}^{i \ptcl p \hole b \hole \hole}_{j \ptcl a \hole q \hole \hole}
+   \right] 
++ 
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left[
+      \hat{P}^{(p/q)}_{(r/s)} ( \tl{a}^{i \ptcl p \ptcl \ptcl q \hole b \hole \hole}_{s \ptcl j \ptcl \ptcl  a \hole  r \hole \hole}  )
+   \right] 
+\\
+&= 
+   f_p^q
+   \left[
+      \g_j^i \h_a^p \h_q^b - \g_q^i \g_j^p\h_a^b
+   \right] 
++ 
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}
+   \left[
+      \hat{P}^{(p/q)}_{(r/s)}  [ \, \g^i_s \g^p_j \h^q_a \h^b_r \, ] 
+   \right] 
+\\
+&= 
+   f_p^q \, 
+   [ 
+      \g_j^i
+      \h_a^p
+      \h_q^b
+   -
+      \g_q^i
+      \g_j^p
+      \h_a^b
+   ]
++
+   \tfrac{1}{4}\,
+   \bar{g}_{pq}^{rs}\,
+   [
+      \g^i_s 
+      \g^p_j
+      \h^a_q
+      \h^b_r 
+   - 
+      \g^i_s 
+      \g^q_j
+      \h^a_p
+      \h^b_r 
+   + 
+      \g^i_r 
+      \g^q_j
+      \h^a_p
+      \h^b_s 
+    - 
+       \g^i_r 
+       \g^p_j
+       \h^a_q
+       \h^b_s
+    ]  
+\\
+&=
+   f_a^b 
+   \g_j^i 
+- 
+   f_j^i 
+   \h_a^b 
++ 
+   \tfrac{1}{4} \, 
+   [
+      \bar{g}_{ja}^{bi} 
+   -  
+      \bar{g}_{aj}^{bi}
+   + 
+      \bar{g}_{aj}^{ib} 
+   - 
+      \bar{g}_{ja}^{ib}] 
+\\
+&= 
+   f_a^b 
+   \g_j^i 
+- 
+   f_j^i 
+   \h_a^b 
++  
+   \bar{g}_{ja}^{bi}  
+\\
+\intertext{Recall that the SCF procedure constructs a diagonal Fock matrix whose diagonal elements are orbital energies:}
+   f_a^b 
+&= 
+   f_a^a \d_a^b 
+= 
+   e_a \d_a^b
+\intertext{Furthermore, if indices $i,j$ loop over occupied and $a,b$ loop over virtual orbitals, then $\g_i^j = \d_i^j$ and $\h_a^b = \d_a^b$. So}
+\bra{\F_i^a} 
+      \hat{H}_c 
+   \ket{\F_j^b}
+&= 
+   (
+      e_a
+   -
+      e_i)
+   \d_a^b 
+   \d_j^i 
++  
+   \bar{g}_{ja}^{bi}  
+\\
+\intertext{And these are the standard CIS equations.}
+\end{align*}
+
+\end{document}

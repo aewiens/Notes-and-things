@@ -1,0 +1,359 @@
+\documentclass{article}[11pt]
+\usepackage{mathtools} %includes amsmath
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{bm}
+\usepackage{xfrac}
+\usepackage{url}
+
+\setlength\belowdisplayskip{3pt plus 2 pt minus 2 pt}
+
+\newcommand{\ehf}{\ensuremath{E_{HF}}}
+\newcommand{\he}{\ensuremath{\hat{H}_e}}
+\newcommand{\inter}{\intertext}
+\newcommand{\no}{\cancel}
+
+% greek letters
+\renewcommand{\a}{\alpha}   % alpha
+\renewcommand{\b}{\beta}     % beta
+\newcommand{\g}{\gamma}  % gamma
+\newcommand{\G}{\Gamma}  
+\renewcommand{\d}{\delta}    %delta
+\newcommand{\D}{\Delta}     
+\newcommand{\e}{\epsilon}  %epsilon
+\newcommand{\ev}{\varepsilon}  %varepsilon
+\newcommand{\z}{\zeta}       %zeta
+\newcommand{\h}{\eta}        %eta
+\renewcommand{\th}{\theta}   %theta
+\newcommand{\Th}{\Theta}     %Theta
+\newcommand{\io}{\iota}      %iota
+\renewcommand{\k}{\kappa}    %kappa
+\newcommand{\la}{\lambda}    %lambda
+\newcommand{\La}{\Lambda}    %Lambda
+\newcommand{\m}{\mu}         %mu
+\newcommand{\n}{\nu}         %nu
+\newcommand{\p}{\rho}        %rho
+\newcommand{\si}{\sigma}     %sigma
+\newcommand{\siv}{\varsigma} %sigma*
+\newcommand{\Si}{\Sigma}     %Sigma
+\renewcommand{\t}{\tau}      %tau
+\newcommand{\up}{\upsilon}   %upsilon
+\newcommand{\f}{\phi}        %phi
+\newcommand{\F}{\Phi}        %Phi
+\newcommand{\x}{\chi}        %chi
+\newcommand{\Y}{\ensuremath{\Psi}}
+\newcommand{\y}{\ensuremath{\psi}}
+\newcommand{\w}{\ensuremath{\omega}}
+\newcommand{\W}{\ensuremath{\Omega}}
+
+\newcommand{\BPh}{\ensuremath{\Bra{\Phi}}}
+\newcommand{\KPh}{\ensuremath{\Ket{\Phi}}}
+
+% ornaments
+\renewcommand{\eth}{\ensuremath{^\text{th}}}
+\newcommand{\rst}{\ensuremath{^\text{st}}}
+\newcommand{\ond}{\ensuremath{^\text{nd}}}
+\newcommand{\dg}{\ensuremath{^\dagger}}
+\newcommand{\bigo}{\ensuremath{\mathcal{O}}}
+\newcommand{\tl}{\ensuremath{\tilde}}
+
+% partial derivatives
+\newcommand{\pd}[2]{\ensuremath{\frac{\partial#1}{\partial#2}}}
+\newcommand{\pt}{\ensuremath{\partial}}
+
+%dots
+\newcommand{\ld}{\ensuremath{\ldots}}
+\newcommand{\cd}{\ensuremath{\cdots}}
+\newcommand{\vd}{\ensuremath{\vdots}}
+\newcommand{\dd}{\ensuremath{\ddots}}
+\newcommand{\hole}{\circ}
+\newcommand{\ptcl}{\bullet}
+\usepackage{stackengine}
+\newcommand{\GNO}[1]{\setstackgap{S}{0.7pt}\ensuremath{\Shortstack{\textbf{.} \textbf{.} \textbf{.}}#1\Shortstack{\textbf{.} \textbf{.} \textbf{.}}}}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%      VARIATIONAL THM PROOF     %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Variational Theorem (Proof)}
+{\it Theorem:} \ 
+   In a system where $\hat{H}$ is a time-independent Hamiltonian and $\ket{\F}$ is a well-behaved `trial' wave function that satisfies the boundary conditions of the system, the Rayleigh quotient ($\p$)
+   
+\begin{equation}
+    \p
+= 
+    \frac{
+       \bra{\F} \hat{H} \ket{\F}}
+       {\braket{\F | \F}
+    }
+\geq
+    E_0 \
+    \mbox{ (the system's ground-state energy).}
+\end{equation}
+\\
+{\it Proof:} \ Assuming, WLOG, that $\ket{\F}$ is normalized, we want to show: $\p =\bra{\F} \hat{H} \ket{\F} \geq E_0 $. \vspace{0.3cm} \\
+Furthermore, by normalization of $\ket{\F}$, 
+\begin{equation}
+   \sum
+      \limits_{k=0}^{\infty} 
+         | a_k |^2
+= 
+   1.
+\end{equation}
+The key concept is to expand the trial function $\ket{\F}$ in the complete basis of eigenfunctions of $\hat{H}$, $\{\y_k \}$.
+\begin{equation}
+   \ket{\F} 
+= 
+   \sum\limits_{k=0}^{\infty} a_k \ket{\y_k}
+\end{equation}
+Where we construct the basis to be orthonormal ($\braket{\y_j | \y_k}$). \\
+Now we are in a position to evaluate the energy expectation value
+\begin{align*}
+   \bra{\F} 
+      \hat{H}
+   \ket{\F}
+&=  
+   \left(
+      \sum
+         \limits_{j=0}^{\infty}
+            a_j^*
+            \bra{\y_j}
+   \right)
+   \left(
+      \sum
+         \limits_{k=0}^{\infty}
+         \hat{H}
+         a_k 
+         \ket{\y_k}
+   \right)
+=  
+    \sum
+    \limits_{j=0}^{\infty}
+    \sum
+    \limits_{k=0}^{\infty}
+    a_j^*
+    a_k
+        \bra{\y_j}
+           \hat{H}
+        \ket{\y_k}
+\\&=  
+    \sum
+    \limits_{j=0}^{\infty}
+    \sum
+    \limits_{k=0}^{\infty}
+    a_j^*
+    a_k
+    E_k
+        \braket{\y_j | \y_k} 
+=  
+    \sum
+    \limits_{j=0}^{\infty}
+    \sum
+    \limits_{k=0}^{\infty}
+    a_j^*
+    a_k
+    E_k
+    \d_{jk} 
+\end{align*}
+Which yields the final result
+\begin{equation}
+   \bra{\F} 
+      \hat{H}
+   \ket{\F}
+=  
+    \sum
+    \limits_{k=0}^{\infty}
+    | a_k |^2
+    E_k
+\end{equation}
+With some foresight, rewrite this equation as 
+\begin{equation}
+   \bra{\F} 
+      \hat{H}
+   \ket{\F}
+=  
+    E_0 |a_0|^2 
++ 
+    \sum
+    \limits_{k=1}^{\infty}
+    | a_k |^2
+    E_k
+\end{equation}
+Applying the normalization of the trial function, 
+\begin{align*}
+   \bra{\F} 
+      \hat{H}
+   \ket{\F}
+&=  
+    E_0
+    \left(
+       1 
+    - 
+        \sum
+        \limits_{k=1}^{\infty}
+        | a_k |^2
+    \right)  
++ 
+    \sum
+    \limits_{k=1}^{\infty}
+    | a_k |^2
+    E_k
+\\&=
+    E_0
++ 
+    \sum
+    \limits_{k=1}^{\infty}
+    | a_k |^2
+    ( E_k - E_0 )  
+\end{align*}
+The last assumption we'll make (WLOG) will be that the the eigenvalues are ordered, $E_0 \leq E_1 \leq ... \leq E_n$, so
+\begin{equation}
+    \sum
+    \limits_{k=1}^{\infty}
+    | a_k |^2
+    ( E_k - E_0 )
+\geq
+    0.   
+\end{equation}
+Thus,
+\begin{equation} 
+\bra{\F} 
+      \hat{H}
+   \ket{\F}
+\geq
+   E_0
++ 
+   0  \ \ \blacksquare.
+\end{equation}
+Clearly equality holds when $\ket{\F} = \ket{\Y}$, the exact ground-state wavefunction in the specified basis representation. In practice, this means that minimizing the energy expectation value yields the ground state energy of the system. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%      Lagrangian optimization is variational   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection*{What is the variational method // how do we use it?}
+
+We can restate the variational principle in matrix form:
+\begin{equation}
+\mathbf{\frac{c^{\bf{\dg}} H\, c}{c^{\bf{\dg}}c}} \geq E_0,
+\end{equation}
+where, in a given basis set, $\mathbf{H}$ is the matrix representation of the Hamiltonian $\hat{H}$, and $\bf{c}$ is the coefficient vector of the basis functions of the system's ground-state wave function $\ket{\Y}$. \vspace{0.3cm} \\
+{\bf Claim:} 
+A vector $\mathbf{c}$ that minimizes $\mathbf{c^{\bf{\dg}} H\, c}$ is the ground-state eigenvector of $\mathbf{H}$. \vspace{0.3cm} \\
+{\bf Proof:} 
+\vspace{0.2cm} 
+\\
+We'll show that minimizing the expectation value $\mathbf{c^{\bf{\dg}} H\, c}$ (with ${\bf c^{{\bf \dg}}c}  =1$) is equivalent to solving a matrix eigenvalue problem. \vspace{0.3cm}
+\\
+A good way to minimize $\mathbf{c^{\bf{\dg}} H\, c}$ with respect to the constraint ${\bf c^{{\bf \dg}}c}  =1$ is by using a Lagrangian optimization:
+\begin{align}
+    \mathcal{L} \{ {\bf c}, \la \} 
+&=   
+    \mathbf{c^{\bf{\dg}} H\, c} - \la (\bf c^{{\bf \dg}}c - 1)
+\\&= 
+   \sum\limits_{ij}
+   c^*_i
+   H_{ij}
+   c_{j}
+- 
+   \la
+   \left(
+      \sum\limits_{i}
+      c^*_i c_i 
+   -
+      1
+   \right)
+\end{align}
+The Lagrange optimization procedure requires $\frac{\pt \mathcal{L}}{\pt \la} = \frac{\pt \mathcal{L}}{\pt {\bf c}} = 0$. Consider the derivative with respect to $\mathbf{c}$:
+\begin{align}
+   0
+&=
+   \frac{\pt \mathcal{L}}{\pt c_k}
+= 
+   \sum\limits_{ij}
+   \left[ 
+      \frac{\pt c_i}{\pt c_k} 
+      H_{ij} c_j
+   +    
+      c_i H_{ij} 
+       \frac{\pt c_j}{\pt c_k} 
+   \right]
+- 
+   \la 
+   \sum \limits_i
+   \frac{\pt}{\pt c_k}
+   c_i^2 
+\\
+&= 
+    \sum\limits_{ij}
+      \d_{ik}
+      H_{ij} c_j
++    
+      \sum\limits_{ij}
+      c_i H_{ij} 
+       \d_{jk}
+- 
+   \la 
+   \sum \limits_i
+   2 c_i^2 
+   \d_{ik} 
+\\
+&= 
+      \sum\limits_{j}
+      H_{kj} c_j
++    
+      \sum\limits_{i}
+      c_i H_{ik} 
+- 
+   \la 
+   2 c_k^2 
+\intertext{Since summed-over indices are just dummy variables (interchangeable),}
+&= 
+      \sum\limits_{i}
+      H_{ki} c_i
++    
+      \sum\limits_{i}
+      c_i H_{ik} 
+- 
+   \la 
+   2 c_k^2 
+\intertext{Since $\mathbf{H}$ is symmetric,}
+&= 
+      \sum\limits_{i}
+      H_{ki} c_i
++    
+      \sum\limits_{i} 
+- 
+   \la 
+   2 c_k^2 
+\intertext{So we have arrived at}
+   0
+&= 
+   2
+   \left( 
+       \sum\limits_i
+       H_{ik} c_i 
+ -
+       \la 
+       c_k
+   \right)
+\end{align}
+Which we rearrange to identify as an eigenvalue problem:
+\begin{equation}
+   \sum\limits_i
+      H_{ki}
+      c_i
+= 
+    \la
+    c_k, 
+\end{equation}
+In matrix form this equation is $\mathbf{H} \mathbf{c_k} = \la_k \mathbf{c_k}$. \vspace{0.2cm} \\
+{\bf Conclude:}  This is very significant, because it means that solving for lowest eigenvalue and its associated eigenvector of $\bf{H}$ corresponds physically to finding the ground state energy of the system.
+
+\end{document}

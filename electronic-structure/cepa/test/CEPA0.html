@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="CEPA0.tex"> 
+<meta name="date" content="2019-02-13 18:54:00"> 
+<link rel="stylesheet" type="text/css" href="CEPA0.css"> 
+</head><body 
+>
+   <h3 class="likesectionHead"><a 
+ id="x1-1000"></a>Coupled-Electron Pair Approximations (CEPAs)</h3>
+<!--l. 12--><p class="noindent" >The CEPA methods are techniques for computing dynamic correlation energy on top of a Hartree-Fock (HF) reference.
+For convenience, define a correlation energy <span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub> and a correlated Hamiltonian <span 
+class="cmmi-10">&#x0124;</span><sub><span 
+class="cmr-7">c</span></sub>:
+<table 
+class="align-star">
+                    <tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub></td>                       <td 
+class="align-even"> = <span 
+class="cmmi-10">E</span><sub><span 
+class="cmr-7">e</span></sub> <span 
+class="cmsy-10">- </span><span 
+class="cmmi-10">E</span><sub><span 
+class="cmr-7">HF</span></sub></td>                             <td 
+class="align-odd"></td>                    <td 
+class="align-even"><span 
+class="cmmi-10">&#x0124;</span><sub><span 
+class="cmr-7">c</span></sub> = <span 
+class="cmmi-10">&#x0124;</span><sub><span 
+class="cmr-7">e</span></sub> <span 
+class="cmsy-10">- </span><span 
+class="cmmi-10">E</span><sub><span 
+class="cmr-7">HF</span></sub></td>                    <td 
+class="align-label"></td>                    <td 
+class="align-label"></td>                    <td 
+class="align-label"></td>                    <td 
+class="align-label">
+   </td></tr><tr><td colspan="8" class="intertext">Obeying the convention that indices <span 
+class="cmmi-10">i,j,k... </span>correspond to occupied orbitals and <span 
+class="cmmi-10">a,b,c,... </span>to virtual orbitals, we also
+define a doubles excitation operator:</td></tr><tr><td>
+                    </td></tr><tr><td 
+class="align-odd"><img 
+src="CEPA00x.png" alt="T&#x02C6;"  class="circ" ><sub><span 
+class="cmr-7">2</span></sub><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9;</span></td>                    <td 
+class="align-even"> = <img 
+src="CEPA01x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">ijab</span></sub><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span>&#x03A6;<sub>
+<span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">.</span></td>                    <td 
+class="align-odd"></td>                    <td 
+class="align-even"></td>                                <td 
+class="align-label"></td>                    <td 
+class="align-label">                                        </td></tr></table>
+With these definitions and a Hartree-Fock reference <span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9;</span>, the CCD equations are:
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub></td>                           <td 
+class="align-even"> = <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub><span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA02x.png" alt="T&#x02C6;2"  class="circ" ><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9;</span></td>                                                                               <td 
+class="align-label"><a 
+ id="x1-1001r1"></a>(1)
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup></td>                       <td 
+class="align-even"> = <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub>
+<span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA03x.png" alt="&#x02C6;
+T2"  class="circ" ><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ <img 
+src="CEPA04x.png" alt="1
+2"  class="frac" align="middle"><span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA05x.png" alt=" &#x02C6;
+T2"  class="circ" ><sup><span 
+class="cmr-7">2</span></sup><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">&#x00A0;</span></td>                                              <td 
+class="align-label"><a 
+ id="x1-1002r2"></a>(2)                       </td></tr></table>
+
+where (1) is called the CCD energy expression and (2) is the CCD amplitude equations for the excitation <span 
+class="cmmi-10">ij </span><span 
+class="cmsy-10">&#x2192; </span><span 
+class="cmmi-10">ab</span>. Both
+expressions can be simplified using Slater rules or Wick&#8217;s theorem.
+<table 
+class="align-star">
+   <tr><td colspan="15" class="intertext">The simplified energy expression (1) is:</td></tr>
+                <tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub></td>                              <td 
+class="align-even"> = <img 
+src="CEPA06x.png" alt="&#x27E8;&#x03A6;/|&#x02C6;H/c|//&#x03A6;&#x27E9;
+/"  class="mathpalette" > + <img 
+src="CEPA07x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup><span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><span 
+class="cmsy-10">|</span>&#x03A6;<sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup><span 
+class="cmsy-10">&#x27E9;</span></td>                                        <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub></td>                              <td 
+class="align-even"> = <img 
+src="CEPA08x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup></td>                                                      <td 
+class="align-label"></td>                <td 
+class="align-label">
+   </td></tr><tr><td colspan="4" class="intertext">For the amplitude equations, we can split up the <img 
+src="CEPA09x.png" alt=" &#x02C6;
+T"  class="circ" ><sub><span 
+class="cmr-7">2</span></sub><sup><span 
+class="cmr-7">2</span></sup> term into linked and unlinked contributions.</td></tr><tr><td>
+                </td></tr><tr><td 
+class="align-odd"><img 
+src="CEPA010x.png" alt="1
+2"  class="frac" align="middle"><span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA011x.png" alt="T&#x02C6;"  class="circ" ><sub><span 
+class="cmr-7">2</span></sub><sup><span 
+class="cmr-7">2</span></sup><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">&#x00A0;</span></td>                <td 
+class="align-even"> = <img 
+src="CEPA012x.png" alt="1
+2"  class="frac" align="middle"><img 
+src="CEPA013x.png" alt="(1 )
+ 4"  class="left" align="middle"><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmex-10">&#x2211;</span>
+   <sub><span 
+class="cmmi-7">klcd</span></sub> <span 
+class="cmex-10">&#x2211;</span>
+        <sub><span 
+class="cmmi-7">mnef</span></sub><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">mn</span></sub><sup><span 
+class="cmmi-7">ef</span></sup><span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub>
+<span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><span 
+class="cmsy-10">|&#x27E9;</span>&#x03A6;<sub><span 
+class="cmmi-7">klmn</span></sub><sup><span 
+class="cmmi-7">cdef</span></sup></td>                         <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd"></td>                                <td 
+class="align-even"> = &#x0394;<sub><span 
+class="cmmi-7">U</span></sub> + &#x0394;<sub><span 
+class="cmmi-7">L</span></sub></td>                                                                <td 
+class="align-label"></td>                <td 
+class="align-label">
+   </td></tr><tr><td colspan="4" class="intertext">where the unlinked (&#x0394;<sub><span 
+class="cmmi-7">U</span></sub>) and linked (&#x0394;<sub><span 
+class="cmr-7">L</span></sub>) contributions are defined as follows: (the proof uses diagrams)</td></tr><tr><td>
+                </td></tr><tr><td 
+class="align-odd"></td>                                <td 
+class="align-even"></td>                                                                          <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd">&#x0394;<sub><span 
+class="cmmi-7">U</span></sub></td>                             <td 
+class="align-even"> = <img 
+src="CEPA014x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup></td>                                                  <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd">&#x0394;<sub><span 
+class="cmmi-7">L</span></sub></td>                             <td 
+class="align-even"> = <span 
+class="cmsy-10">-</span><img 
+src="CEPA015x.png" alt="1
+2"  class="frac" align="middle"><img 
+src="CEPA016x.png" alt="&#x02C6;P"  class="circ" >(<span 
+class="cmmi-10">ab</span>)<span 
+class="cmex-10">&#x2211;</span>
+   <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ac</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">bd</span></sup> <span 
+class="cmsy-10">-</span><img 
+src="CEPA017x.png" alt="1
+2"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><img 
+src="CEPA018x.png" alt="P&#x02C6;"  class="circ" >(<span 
+class="cmmi-10">ij</span>)<span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ik</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">jl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup></td>                <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd"></td>                                <td 
+class="align-even"> + <img 
+src="CEPA019x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">cd</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">ab</span></sup> + <img 
+src="CEPA020x.png" alt="P&#x02C6;"  class="circ" >(<span 
+class="cmmi-10">ij</span>)<span 
+class="cmex-10">&#x2211;</span>
+   <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ik</span></sub><sup><span 
+class="cmmi-7">ac</span></sup><span 
+class="cmmi-10">t</span><sub>
+<span 
+class="cmmi-7">jl</span></sub><sup><span 
+class="cmmi-7">bd</span></sup></td>                        <td 
+class="align-label"></td>                <td 
+class="align-label">
+   </td></tr><tr><td colspan="4" class="intertext">Note that &#x0394;<sub><span 
+class="cmmi-7">U</span></sub> = <span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup>, the left-hand side of equation (2). Thus the amplitude equation (2) simplifies
+to</td></tr><tr><td>
+                </td></tr><tr><td 
+class="align-odd"><img 
+src="CEPA021x.png" alt=" E/c/taibj
+/"  class="mathpalette" ></td>                           <td 
+class="align-even"> = <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA022x.png" alt="&#x02C6;T2"  class="circ" ><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ <img 
+src="CEPA023x.png" alt="/&#x0394;/U"  class="mathpalette" >+ &#x0394;<sub><span 
+class="cmmi-7">L</span></sub></td>                                     <td 
+class="align-label"></td>                <td 
+class="align-label"></td></tr></table>
+Applying these simplifications, the energy and amplitude equations can be written as
+<table 
+class="align">
+                              <tr><td 
+class="align-odd"><span 
+class="cmmi-10">E</span><sub><span 
+class="cmmi-7">c</span></sub></td>                              <td 
+class="align-even"> = <img 
+src="CEPA024x.png" alt="1
+4"  class="frac" align="middle"><span 
+class="cmex-10">&#x2211;</span>
+    <sub><span 
+class="cmmi-7">klcd</span></sub><span 
+class="cmsy-10">&#x27E8;</span><span 
+class="cmmi-10">kl</span><span 
+class="cmsy-10">||</span><span 
+class="cmmi-10">cd</span><span 
+class="cmsy-10">&#x27E9;</span><span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">kl</span></sub><sup><span 
+class="cmmi-7">cd</span></sup></td>                                                                        <td 
+class="align-label"><a 
+ id="x1-1003r3"></a>(3)
+                              </td></tr><tr><td 
+class="align-odd">0</td>                               <td 
+class="align-even"> = <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ <span 
+class="cmsy-10">&#x27E8;</span>&#x03A6;<sub><span 
+class="cmmi-7">ij</span></sub><sup><span 
+class="cmmi-7">ab</span></sup><span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x0124;</span><sub>
+<span 
+class="cmmi-7">c</span></sub><img 
+src="CEPA025x.png" alt="&#x02C6;
+T2"  class="circ" ><span 
+class="cmsy-10">|</span>&#x03A6;<span 
+class="cmsy-10">&#x27E9; </span>+ &#x0394;<sub><span 
+class="cmmi-7">L</span></sub></td>                                                            <td 
+class="align-label"><a 
+ id="x1-1004r4"></a>(4)                              </td></tr></table>
+The CCD expression for &#x0394;<sub><span 
+class="cmmi-7">L</span></sub> is nonlinear in the <span 
+class="cmmi-10">t</span>-amplitudes (they are multiplied by each other). This is what makes
+the coupled-cluster equations very complex and difficult to parallelize in a production code. Thus, the goal of the CEPA
+methods is to include a linear approximation for &#x0394;<sub><span 
+class="cmr-7">L</span></sub>.
+
+   <h4 class="likesubsectionHead"><a 
+ id="x1-2000"></a>CEPA(0)</h4>
+<!--l. 186--><p class="noindent" >The simplest CEPA technique, known as CEPA(0), simply assumes &#x0394;<sub><span 
+class="cmmi-7">L</span></sub> = 0, yielding the equations
+   <table 
+class="equation"><tr><td><a 
+ id="x1-2001r5"></a>
+   <center class="math-display" >
+<img 
+src="CEPA026x.png" alt="E  = 1 &#x2211; &#x27E8;kl||cd&#x27E9;tcd
+  c  4 klcd      kl
+" class="math-display" ></center></td><td class="equation-label">(5)</td></tr></table>
+<!--l. 194--><p class="nopar" >
+   <table 
+class="equation"><tr><td><a 
+ id="x1-2002r6"></a>
+   <center class="math-display" >
+<img 
+src="CEPA027x.png" alt="0 = &#x27E8;&#x03A6;aibj|H&#x02C6;c |&#x03A6; &#x27E9;+ &#x27E8;&#x03A6;aijb|H&#x02C6;cT&#x02C6;2|&#x03A6;&#x27E9;
+" class="math-display" ></center></td><td class="equation-label">(6)</td></tr></table>
+<!--l. 206--><p class="nopar" >
+<br 
+class="newline" />Note that the energy expression has not changed: (5) = (3) = (1), but the amplitude equations (6) have been
+simplified to include only linear terms. Although this seems like an oversimplification, the motivation is that
+the linked contributions to the <img 
+src="CEPA028x.png" alt="&#x02C6;T"  class="circ" ><sub><span 
+class="cmr-7">2</span></sub><sup><span 
+class="cmr-7">2</span></sup> matrix element essentially cancel each other out. This has proven to
+be a fair assumption; CEPA<sub><span 
+class="cmr-7">0</span></sub> often outperforms CCSD in the equilibrium region (albeit due to error
+cancellation).
+<!--l. 376--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x1-3000"></a>CEPA(1)</h4>
+<!--l. 378--><p class="noindent" >For the CEPA(1) method, we introduce the concept of pair energies:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="CEPA029x.png" alt="     1 &#x2211;   ab   &#x02C6;   ab
+&#x03F5;ij = 2   cij&#x27E8;&#x03A6;|Hc|&#x03A6;ij&#x27E9;
+       ab
+" class="math-display" ></center></td></tr></table>
+<!--l. 388--><p class="nopar" >
+Physically we can think of the pair energy as the energy contributions of those configurations that have electrons
+excited from the same occupied orbitals, summed over all possible excitations into virtual orbitals. Using this notation,
+the CEPA(1) technique approximates the unlinked contributions as follows:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="CEPA030x.png" alt="        (      &#x2211;           )
+&#x0394;L = cabij  &#x03F5;ij + 1   (&#x03F5;ik + &#x03F5;kj)
+              2 k
+" class="math-display" ></center></td></tr></table>
+<!--l. 406--><p class="nopar" >
+Notably, approximation has the desired property of being exact for separated electron pairs. <br 
+class="newline" />The resulting amplitude equations are
+   <table 
+class="equation"><tr><td><a 
+ id="x1-3001r7"></a>
+   <center class="math-display" >
+<img 
+src="CEPA031x.png" alt="  (     1 &#x2211;          )
+caibj  &#x03F5;ij +-    (&#x03F5;ik + &#x03F5;kj) = &#x27E8;&#x03A6;abij|&#x02C6;Hc|&#x03A6;&#x27E9;+ &#x27E8;&#x03A6;aibj|H&#x02C6;c &#x02C6;T2|&#x03A6; &#x27E9;
+        2  k
+" class="math-display" ></center></td><td class="equation-label">(7)</td></tr></table>
+<!--l. 431--><p class="nopar" >
+    
+</body></html> 
+
+
+

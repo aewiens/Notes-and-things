@@ -1,0 +1,675 @@
+\documentclass{article}
+\usepackage{mathtools}%includes amsmath
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{cancel}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{bm}
+\usepackage{xfrac}
+\usepackage{url}
+
+\newcommand{\ehf}{\ensuremath{E_{\mathrm{HF}}}}
+\newcommand{\he}{\ensuremath{\hat{H}_e}}
+\newcommand{\bo}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\mr}[1]{\ensuremath{\mathrm{#1}}}
+
+% greek letters
+\renewcommand{\a}{\alpha}   % alpha
+\renewcommand{\b}{\beta}     % beta
+\newcommand{\g}{\gamma}  % gamma
+\newcommand{\G}{\Gamma}  
+\renewcommand{\d}{\delta}    %delta
+\newcommand{\D}{\Delta}     
+\newcommand{\e}{\epsilon}  %epsilon
+\newcommand{\ev}{\varepsilon}  %varepsilon
+\newcommand{\z}{\zeta}       %zeta
+\newcommand{\h}{\eta}        %eta
+\renewcommand{\th}{\theta}   %theta
+\newcommand{\Th}{\Theta}     %Theta
+\newcommand{\io}{\iota}      %iota
+\renewcommand{\k}{\kappa}    %kappa
+\newcommand{\la}{\lambda}    %lambda
+\newcommand{\La}{\Lambda}    %Lambda
+\newcommand{\m}{\mu}         %mu
+\newcommand{\n}{\nu}         %nu
+\newcommand{\p}{\rho}        %rho
+\newcommand{\si}{\sigma}     %sigma
+\newcommand{\siv}{\varsigma} %sigma*
+\newcommand{\Si}{\Sigma}     %Sigma
+\renewcommand{\t}{\tau}      %tau
+\newcommand{\up}{\upsilon}   %upsilon
+\newcommand{\f}{\phi}        %phi
+\newcommand{\F}{\Phi}        %Phi
+\newcommand{\x}{\chi}        %chi
+\newcommand{\Y}{\ensuremath{\Psi}}
+\newcommand{\y}{\ensuremath{\psi}}
+\newcommand{\w}{\ensuremath{\omega}}
+\newcommand{\W}{\ensuremath{\Omega}}
+
+\newcommand{\BPh}{\ensuremath{\Bra{\Phi}}}
+\newcommand{\KPh}{\ensuremath{\Ket{\Phi}}}
+
+% ornaments
+\renewcommand{\eth}{\ensuremath{^\text{th}}}
+\newcommand{\rst}{\ensuremath{^\text{st}}}
+\newcommand{\ond}{\ensuremath{^\text{nd}}}
+\newcommand{\dg}{\ensuremath{^\dagger}}
+\newcommand{\bigo}{\ensuremath{\mathcal{O}}}
+\newcommand{\tl}{\ensuremath{\tilde}}
+\newcommand{\op}[1]{\ensuremath{\hat{#1}}}
+
+%dots
+\newcommand{\ld}{\ensuremath{\ldots}}
+\newcommand{\cd}{\ensuremath{\cdots}}
+\newcommand{\vd}{\ensuremath{\vdots}}
+\newcommand{\dd}{\ensuremath{\ddots}}
+\newcommand{\hole}{\circ}
+\newcommand{\ptcl}{\bullet}
+\usepackage{stackengine}
+\newcommand{\GNO}[1]{\setstackgap{S}{0.7pt}\ensuremath{\Shortstack{\textbf{.} \textbf{.} \textbf{.}}#1\Shortstack{\textbf{.} \textbf{.} \textbf{.}}}}
+
+\begin{document}
+\section*{CID Equations}
+%\smallskip
+%%%%%%%%%%%%%%%%%%%%%%
+%%% 	HAMILTONIAN STRUCTURE   	%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{1. Hamiltonian Matrix}
+We can shift the CID Hamiltonian by $\ehf$ to consider only the correlation energy (see CIS notes for specifics).
+\begin{align*}
+   \bf{\tl{H}}
+&= 
+   \begin{bmatrix}
+      \cancel{
+         \bra{\F} 
+            \hat{H}_c 
+         \ket{\F} 
+      }
+      & 
+       \bra{\F}
+          \hat{H}_c
+       \ket{\bo{\F}_{\mathrm{D}}}
+       \\
+       \bra{\bo{\F}_{\mathrm{D}}}
+          \hat{H}_c
+       \ket{\F}
+       & 
+      \bra{\bo{\F}_{\mathrm{D}}}
+          \hat{H}_c
+       \ket{\bo{\F}_{\mathrm{D}}}
+       \\
+    \end{bmatrix}
+\intertext{where $\ket{{\bo{\F}_{\mr{D}}}} = \hat{C}_2 \ket{\F}$ is a vector with elements $\ket{\Phi_{ij}^{ab}}$.}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% 	MATRIX ELEMENTS   	%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{2. Hamiltonian Matrix Elements}
+\vspace{-0.3cm}
+\begin{align*}
+\intertext{W'll first evaluate the off-diagonal matrix elements $\bra{\F} \hat{H}_c \ket{\bo{\F}_{\mathrm{D}}}$ = $\bra{\bo{\F}_{\mathrm{D}}} \hat{H}_c \ket{\F}^\mr{T}$, because $\hat{H}_c$ is Hermitian. Thus, }
+   [\bra{\bo{\F}_{\mathrm{D}}} 
+      \hat{H}_c 
+   \ket{\F}]_{ijab}
+&= 
+   \bra{\F_{ij}^{ab}}
+      \hat{H}_c
+   \ket{\F}
+\\
+   [\bra{\F} 
+      \hat{H}_c 
+   \ket{\bo{\F}_{\mathrm{D}}}]_{ijab}
+&= 
+   \bra{\F}
+      \hat{H}_c
+   \ket{\F_{ij}^{ab}}
+\intertext{Applying the Slater-Condon rules,}
+   [\bra{\bo{\F}_{\mathrm{D}}} 
+      \hat{H}_c 
+   \ket{\F}]_{ijab}
+&= 
+   \braket{ij || ab}
+\\
+   [\bra{\F} 
+      \hat{H}_c 
+   \ket{\bo{\F}_{\mathrm{D}}}]_{ijab}
+&= 
+   \braket{ab || ij}
+\intertext{Because the two-electron integral tensor is Hermitian, $ \braket{ij || ab} =  \braket{ab || ij} $.}
+\intertext{Thus $\bra{\bo{\F}_{\mathrm{D}}} \hat{H}_c \ket{\F}^{\dg} =\bra{\F} \hat{H}_c \ket{\bo{\F}_{\mathrm{D}}}$ are column vectors with entries $\braket{ij || ab}$.}
+\hline
+\end{align*}
+Next consider $[\bra{\bo{\F}_{\mathrm{D}}} \hat{H}_c \ket{\bo{\F}_{\mathrm{D}}}]_{ijab,klcd}$.
+\begin{align*}
+   \bra{\bo{\F}_{\mathrm{D}}} \hat{H}_c \ket{\bo{\F}_{\mathrm{D}}}]_{ijab,klcd}
+&= 
+  \bra{\F} 
+      \tl{a}_{ab}^{ij}
+      \hat{H}_c
+      \tl{a}_{kl}^{cd}  
+   \ket{\F} \
+   \mbox{ (second quantization formalism).}
+\\&= 
+   f_p^q 
+   \bra{\F}
+      \tl{a}_{ab}^{ij}
+      \tl{a}_q^p
+      \tl{a}_{kl}^{cd}
+   \ket{\F}
++
+   \frac{1}{4}
+   \bar{g}_{pq}^{rs}
+   \bra{\F}
+      \tl{a}_{ab}^{ij}
+      \tl{a}_{rs}^{pq}
+      \tl{a}_{kl}^{cd}
+   \ket{\F}
+\\
+\intertext{We'll evaluate the necessary matrix elements separately.}
+   \bra{\F}\tl{a}_{ab}^{ij}\,\tl{a}_q^p\,\tl{a}_{kl}^{cd} \ket{\F} 
+&= 
+      \cancel{\bra{\F}
+         \GNO{
+            \tl{a}_{ab}^{ij}
+            \tl{a}_q^p
+            \tl{a}_{kl}^{cd}
+         }
+      \ket{\F}}
++ 
+   \bra{\F}
+      \GNO{
+         \overline{
+            \tl{a}_{ab}^{ij}
+            \tl{a}_q^p
+            \tl{a}_{kl}^{cd}
+         }
+      }
+   \ket{\F} 
+\\
+&=
+   0
++
+   \GNO{
+      \overline{
+         \tl{a}_{ab}^{ij}
+         \tl{a}_q^p
+         \tl{a}_{kl}^{cd}
+      }
+   } 
+\\
+&= 
+    \hat{P}^{(a/b\, | \, c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+         \tl{a}^{i^{\ptcl 1} j^{\ptcl 2}}_{a^{\hole 1} b^{\hole 2}} 
+         \tl{a}^{p^{\hole 1}}_{q^{\hole 3}} 
+         \tl{a}^{c^{\hole2} d^{\hole 3}}_{k^{\ptcl1} l^{\ptcl 2}}  
+      }
+   \right] 
++ 
+   \hat{P}^{(i/j|c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+         \tl{a}^{i^{\ptcl 1} j^{\ptcl 2}}_{a^{\hole 1} b^{\hole 2}}
+         \tl{a}^{p^{\ptcl 3}}_{q^{\ptcl 1}}
+         \tl{a}^{c^{\hole1} d^{\hole 2}}_{k^{\ptcl2} l^{\ptcl 3}}  
+      } 
+   \right] 
+  \\
+&=  
+   \hat{P}^{(a/b|c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+         \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\hole 1} c^{\hole 2} d^{\hole 3}}_{a^{\hole 1} b^{\hole 2} q^{\hole 3} k^{\ptcl1} l^{\ptcl 2}} 
+      }
+   \right] 
++
+   \hat{P}^{(i/j\,|\,c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+         \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\ptcl 3} c^{\hole2} d^{\hole 3}}_{a^{\hole 1} b^{\hole 2} q^{\ptcl 1} k^{\ptcl2} l^{\ptcl 3}}
+      } 
+   \right] 
+\\
+&=  
+    \hat{P}^{(a/b|c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+         \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\hole 1} c^{\hole 2} d^{\hole 3}}_{k^{\ptcl1} l^{\ptcl 2} a^{\hole 1} b^{\hole 2} q^{\hole 3} } 
+      }
+   \right] 
++
+   \hat{P}^{(i/j|c/d)}_{(k/l)} 
+   \left[
+      \GNO{
+          \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\ptcl 3} c^{\hole2} d^{\hole 3}}_{q^{\ptcl 1} k^{\ptcl 2} l^{\ptcl 3} a^{\hole 1} b^{\hole 2} }  
+       } 
+    \right] 
+\\
+&= 
+   -\hat{P}^{(a/b | c/d)}_{(k/l)} \left[
+      \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\hole 1} d^{\hole 2} c^{\hole 3}}_{k^{\ptcl1} l^{\ptcl 2} a^{\hole 1} b^{\hole 2} q^{\hole 3}}  
+   \right] 
+- 
+   \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+      \tl{a}^{i^{\ptcl 1} j^{\ptcl 2} p^{\ptcl 3} c^{\hole2} d^{\hole 3}}_{q^{\ptcl 1} l^{\ptcl 2} k^{\ptcl 3} a^{\hole 1} b^{\hole 2} }   
+   \right] 
+\\
+&= 
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+      \g_k^i \g_l^j \h_a^p \h_b^d \h_q^c \right] - \hat{P}^{(i/j|c/d)}_{(k/l)} \left[\g_q^i \g_l^j \g_k^p \h_a^c \h_b^d 
+   \right] 
+\intertext{Since indices $i,j,k,l$ correspond only to occupied orbitals and indices $a,b,c,d$ correspond only to virtual orbitals,}
+&= 
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+      \d_{ki} \d_{lj} \d_{ap} \d_{bd} \d_{qc} \right] - \hat{P}^{(i/j|c/d)}_{(k/l)} \left[\d_{qi} \d_{lj} \d_{kp} \d_{ac} \d_{bd} 
+   \right] 
+\end{align*}
+\begin{align*}
+   \bra{\F}\tl{a}_{ab}^{ij}\,\tl{a}_{rs}^{pq}\,\tl{a}_{kl}^{cd} \ket{\F} 
+&= 
+   \cancel{\bra{\F}
+      \GNO{
+         \tl{a}_{ab}^{ij}
+         \tl{a}_{rs}^{pq}
+         \tl{a}_{kl}^{cd}
+      }
+   \ket{\F}} 
++
+   \bra{\F}
+      \GNO{
+         \overline{
+            \tl{a}_{ab}^{ij}
+            \tl{a}_{rs}^{pq}
+            \tl{a}_{kl}^{cd}
+         }
+      }
+   \ket{\F} 
+\\
+&= 
+   0 
++ 
+   \GNO{
+      \overline{
+         \tl{a}_{ab}^{ij}
+         \tl{a}_{rs}^{pq}
+         \tl{a}_{kl}^{cd}
+      }
+   } 
+\\
+&= 
+   \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+      \GNO{
+         \tl{a}_{a^{\hole 1} b^{\hole 2}}^{i^{\ptcl1} j^{\ptcl2}}
+         \tl{a}_{r^{\ptcl1} s^{\ptcl2}}^{p^{\ptcl3} q^{\ptcl 4}}
+         \tl{a}_{k^{\ptcl 3} l^{\ptcl 4}}^{c^{\hole 1} d^{\hole 2}}
+         }
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+      \GNO{
+         \tl{a}_{a^{\hole 1} b^{\hole 2}}^{i^{\ptcl1} j^{\ptcl2}}
+         \tl{a}_{r^{\hole3} s^{\hole 4}}^{p^{\hole1} q^{\hole2}}
+         \tl{a}_{k^{\ptcl 1} l^{\ptcl 2}}^{c^{\hole 3} d^{\hole 4}}
+         }
+      \right]
+\\
+&+
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+      \GNO{
+         \tl{a}_{a^{\hole 1} b^{\hole 2}}^{i^{\ptcl 1} j^{\ptcl 2}}
+         \tl{a}_{r^{\hole 3} s^{\ptcl 1}}^{p^{\ptcl 3} q^{\hole 1}}
+         \tl{a}_{k^{\ptcl 2} l^{\ptcl 3}}^{c^{\hole 2} d^{\hole 3}}
+      }
+   \right]
+\\
+&= 
+   \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \tl{a}_{a^{\hole 1} b^{\hole 2} r^{\ptcl1} s^{\ptcl2} k^{\ptcl 3} l^{\ptcl 4}}^{i^{\ptcl1} j^{\ptcl2} p^{\ptcl3} q^{\ptcl 4} c^{\hole 1} d^{\hole 2}}
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \tl{a}_{a^{\hole 1} b^{\hole 2} r^{\hole3} s^{\hole 4} k^{\ptcl 1} l^{\ptcl 2}}^{i^{\ptcl1} j^{\ptcl2} p^{\hole1} q^{\hole2} c^{\hole 3} d^{\hole 4}}
+      \right]
++ 
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+         \tl{a}_{a^{\hole 1} b^{\hole 2} r^{\hole 3} s^{\ptcl 1} k^{\ptcl 2} l^{\ptcl 3}}^{i^{\ptcl 1} j^{\ptcl 2}  p^{\ptcl 3} q^{\hole 1} c^{\hole 2} d^{\hole 3}}
+   \right]
+\\
+&= 
+    \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \tl{a}_{r^{\ptcl1} s^{\ptcl2} k^{\ptcl 3} l^{\ptcl 4} a^{\hole 1} b^{\hole 2}}^{i^{\ptcl1} j^{\ptcl2} p^{\ptcl3} q^{\ptcl 4} c^{\hole 1} d^{\hole 2}}
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \tl{a}_{k^{\ptcl 1} l^{\ptcl 2} a^{\hole 1} b^{\hole 2} r^{\hole3} s^{\hole 4} }^{i^{\ptcl1} j^{\ptcl2} p^{\hole1} q^{\hole2} c^{\hole 3} d^{\hole 4}}
+      \right]
+- 
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+        \tl{a}_{s^{\ptcl 1} k^{\ptcl 2} l^{\ptcl 3} a^{\hole 1} b^{\hole 2} r^{\hole 3} }^{i^{\ptcl 1} j^{\ptcl 2}  p^{\ptcl 3} q^{\hole 1} c^{\hole 2} d^{\hole 3}}
+   \right]
+\\
+&= 
+    \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \g_r^i \g_s^j \g_k^p \g_l^q \h_a^c \h_b^d 
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \g_k^i \g_l^j \h_a^p \h_b^q \h_r^c \h_s^d
+      \right]
++
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+        \g_s^i \g_k^j \g_l^p \h_a^q \h_b^c \h_r^d
+   \right]
+\\
+&= 
+    \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \d_{r}^{i} \d_{s}^{j} \d_{k}^{p} \d_{l}^{q} \d_{a}^{c} \d_{b}^{d} 
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \d_{k}^{i} \d_{l}^{j} \d_{a}^{p} \d_{b}^{q} \d_{r}^{c} \d_{s}^{d}
+      \right]
++
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+        \d_{s}^{i} \d_{k}^{j} \d_{l}^{p} \d_{a}^{q} \d_{b}^{c} \d_{r}^{d}
+   \right]
+\end{align*}
+\noindent Now we can apply the expressions for these matrix elements to our expression for elements of the Hamiltonian.
+\begin{align*}
+   \bra{\F_{ij}^{ab}}
+      \hat{H}_c
+   \ket{\F_{kl}^{cd}}
+&= 
+    \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+        f_p^q
+        \d_{k}^{i} \d_{l}^{j} \d_{a}^{p} \d_{b}^{d} \d_{q}^{c} 
+     \right] 
+- 
+  \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+     f_p^q
+     \d_{q}^{i} \d_{l}^{j} \d_{k}^{p} \d_{a}^{c} \d_{b}^{d} 
+   \right] 
+\\
+&+
+   \tfrac{1}{4} \left(
+      \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \bar{g}_{pq}^{rs}
+         \d_{r}^{i} \d_{s}^{j} \d_{k}^{p} \d_{l}^{q} \d_{a}^{c} \d_{b}^{d} 
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \bar{g}_{pq}^{rs}
+         \d_{k}^{i} \d_{l}^{j} \d_{a}^{p} \d_{b}^{q} \d_{r}^{c} \d_{s}^{d}
+      \right]
++
+   \hat{P}^{(a/b|c/d|r/s)}_{(i/j|k/l|p/q)} \left[
+        \bar{g}_{pq}^{rs}
+        \d_{s}^{i} \d_{k}^{j} \d_{l}^{p} \d_{a}^{q} \d_{b}^{c} \d_{r}^{d}
+   \right]
+   \right)
+\\
+&= 
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+        f_a^c
+        \d_{k}^{i} \d_{l}^{j} \d_{b}^{d}
+     \right] 
+- 
+  \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+     f_k^i
+     \d_{l}^{j} \d_{a}^{c} \d_{b}^{d} 
+   \right] 
+\\
+&+
+   \tfrac{1}{4} \left(
+      \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+         \bar{g}_{kl}^{ij}
+         \d_{a}^{c} \d_{b}^{d} 
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+         \bar{g}_{ab}^{cd}
+         \d_{k}^{i} \d_{l}^{j}
+      \right]
++
+   4 \hat{P}^{(a/b|c/d)}_{(i/j|k/l)} \left[
+        \bar{g}_{la}^{di}
+        \d_{k}^{j} \d_{b}^{c}
+   \right]
+   \right)
+\\
+&= 
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+        f_a^c
+        \d_{k}^{i} \d_{l}^{j} \d_{b}^{d}
+     \right] 
+- 
+  \hat{P}^{(i/j|c/d)}_{(k/l)} \left[
+     f_k^i
+     \d_{l}^{j} \d_{a}^{c} \d_{b}^{d} 
+   \right] 
+\\
+&+
+   \tfrac{1}{4} \left(
+      4 \hat{P}^{(c/d)} \left[
+         \bar{g}_{kl}^{ij}
+         \d_{a}^{c} \d_{b}^{d} 
+      \right]
++
+   4 \hat{P}^{(k/l)} \left[
+         \bar{g}_{ab}^{cd}
+         \d_{k}^{i} \d_{l}^{j}
+      \right]
++
+   4 \hat{P}^{(a/b|c/d)}_{(i/j|k/l)} \left[
+        \bar{g}_{la}^{di}
+        \d_{k}^{j} \d_{b}^{c}
+   \right]
+   \right)
+\\
+&= 
+   \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+        f_a^c
+        \d_{k}^{i} \d_{l}^{j} \d_{b}^{d}
+     \right] 
+- 
+  \hat{P}^{(i/j|c/d)}_{(k/l)} \left[ 
+     f_k^i
+     \d_{l}^{j} \d_{a}^{c} \d_{b}^{d} 
+   \right] 
++
+      \hat{P}^{(c/d)} \left[
+         \bar{g}_{kl}^{ij}
+         \d_{a}^{c} \d_{b}^{d} 
+      \right]
++
+   \hat{P}^{(k/l)} \left[
+         \bar{g}_{ab}^{cd}
+         \d_{k}^{i} \d_{l}^{j}
+      \right]
++
+   \hat{P}^{(a/b|c/d)}_{(i/j|k/l)} \left[
+        \bar{g}_{la}^{di}
+        \d_{k}^{j} \d_{b}^{c}
+   \right]
+\intertext{Now we having everything necessary to build the CID matrix. However, it is almost always too expensive to diagonalize, even for small systems. Furthermore, a matrix diagonalization gives us a lot of unnecessary information. We are really only interested in the ground state eigenvalue, which is a good approximation to the ground state correlation energy. The other eigenvalues of the CID Hamiltonian -- corresponding to excited state correlation energies --  are not very good. Thus, it makes sense to approach this problem from a different direction.} \vspace{-0.5cm}
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%
+%%%%  ENERGY EXPRESSION %%%%
+%%%%%%%%%%%%%%%%%%%%%
+\subsection*{3. Iterative CID}
+The main idea that most modern CI codes is to write an expression for the correlation energy in terms of doubly excited coefficients and derive a set of amplitude equations which can be used to solve iteratively for those doubly excited coefficients and that's how we obtain a correlation energy.
+\vspace{0.4cm} \\
+{\bf i. Energy Expression}
+\begin{align*}
+\intertext{Start with the Schr{\"o}dinger equation:}
+   \hat{H}_c 
+   \ket{\Y_{\mr{CID}}} 
+&= 
+   E_c 
+   \ket{\Y_{\mr{CID}}} 
+\\
+\intertext{Impose the intermediate normalization condition, $\braket{\F | \Y_{\mr{CID}}} = 1$, and left- project with $\bra{\F}$.}
+   \bra{\F} 
+      \hat{H}_c 
+   \ket{\Y_{\mr{CID}}} 
+&= 
+   E_c 
+   \braket{\F | \Y_{\mr{CID}}} 
+\\	
+&= 
+   E_c
+\intertext{Now using $\ket{\Y_{\mr{CID}}} = ( 1 + \hat{C}_2 ) \ket{\F}$,}
+   E_c 
+&= 
+   \cancel{
+      \bra{\F} 
+         \hat{H}_c 
+      \ket{\F}
+   }
++ 
+   \bra{\F}
+      \hat{H}_c
+      \hat{C}_2
+   \ket{\F}
+\\
+&= 
+   \tfrac{1}{4}
+      c_{ab}^{ij}
+   \bra{\F}
+      \hat{H}_c
+      \tl{a}_{ij}^{ab}
+   \ket{\F}
+\intertext{Where we have used Einstein notation, implying that repeated indices are implicitly summed over. We can simplify this expression further using Wick's theorem to obtain}
+   E_c 
+&= 
+   \tfrac{1}{4}
+   c_{ab}^{ij} \,
+   \bar{g}_{ij}^{ab}
+\intertext{This is a surprisingly simple expression, and it is not an approximation within the specified basis set. If we were able to solve for the coefficients $c_{ab}^{ij}$, this expression would give us the exact FCI energy. But now we need to think about how to obtain these double excitation coefficients.}  \vspace{-0.4cm}
+\end{align*}
+{\bf ii. Amplitude Equations}
+\vspace{-0.2cm}
+\begin{align*}
+\intertext{We'll start again with the Schr{\"o}dinger equation but left-project a doubly-excited determinant, $\F_{ij}^{ab}$ this time.}
+\bra{\F_{ij}^{ab}} 
+      \hat{H}_c 
+   \ket{\Y_{\mr{CID}}} 
+&= 
+   E_c 
+   \braket{\F_{ij}^{ab} | \Y_{\mr{CID}}} 
+\\	
+\bra{\F_{ij}^{ab}} 
+      \hat{H}_c 
+      (1+\hat{C}_2)
+   \ket{\F} 
+&= 
+   E_c 
+   \braket{\F_{ij}^{ab} | (1+\hat{C}_2)\F} 
+\intertext{Simplifying the right-hand side,}
+   E_c 
+   \braket{\F_{ij}^{ab} | (1+\hat{C}_2)\F} 
+&= 
+   E_c 
+   \cancel{
+   \braket{\F_{ij}^{ab} |\F} 
+   }
++ 
+   E_c
+   \braket{\F_{ij}^{ab} | \hat{C}_2\F} 
+\\
+&= 
+   E_c
+   \tfrac{1}{4}
+   \sum\limits_{klcd}
+   c_{cd}^{kl}
+   \braket{\F_{ij}^{ab} | \F_{kl}^{cd}}
+\\
+&= 
+   E_c
+   \tfrac{1}{4}
+   \sum\limits_{klcd}
+   c_{cd}^{kl}
+    \hat{P}_{(a/b)}^{(i/j)}
+   (
+   \d_{ac} 
+   \d_{bd}
+   \d_{ik}
+   \d_{jl}
+   )
+\\
+&= 
+   E_c
+   c_{ab}^{ij}
+\intertext{Now consider the left-hand side (in Einstein notation):}
+   \bra{\F_{ij}^{ab}} 
+      \hat{H}_c 
+      (1+\hat{C}_2)
+   \ket{\F} 
+&= 
+   \bra{\F_{ij}^{ab}}
+      \hat{H}_c
+   \ket{\F}
++ 
+   \tfrac{1}{4}
+   c_{cd}^{kl}
+   \bra{\F_{ij}^{ab}}
+      \hat{H_c}
+   \ket{\F}
+\end{align*}
+Now we set the sides equal to each other in order to obtain the amplitude equation for the excitation $ij$ $\rightarrow$ $ab$.
+\begin{equation*}
+   E_c
+   c_{ab}^{ij}
+= 
+   \bra{\F_{ij}^{ab}}
+      \hat{H}_c
+   \ket{\F}
++ 
+   \tfrac{1}{4}
+   c_{cd}^{kl}
+   \bra{\F_{ij}^{ab}}
+      \hat{H_c}
+   \ket{\F_{kl}^{cd}}
+\end{equation*}
+These are the formal CID amplitude equations, which we can simplify by plugging in our previously obtained results for these matrix elements:
+\begin{align*}
+E_c
+   c_{ab}^{ij}
+&= 
+   \braket{ij || ab}
+\\
+&+ 
+   \tfrac{1}{4}
+    c_{cd}^{kl}
+    \left( 
+       \hat{P}^{(a/b|c/d)}_{(k/l)} \left[
+        f_a^c
+        \d_{k}^{i} \d_{l}^{j} \d_{b}^{d}
+        \right] 
+   - 
+     \hat{P}^{(i/j|c/d)}_{(k/l)} \left[ 
+        f_k^i
+        \d_{l}^{j} \d_{a}^{c} \d_{b}^{d} 
+      \right] 
+   +
+      \hat{P}^{(c/d)} \left[
+         \bar{g}_{kl}^{ij}
+         \d_{a}^{c} \d_{b}^{d} 
+      \right]
+   +
+      \hat{P}^{(k/l)} \left[
+         \bar{g}_{ab}^{cd}
+         \d_{k}^{i} \d_{l}^{j}
+      \right]
+   +
+      \hat{P}^{(a/b|c/d)}_{(i/j|k/l)} \left[
+        \bar{g}_{la}^{di}
+        \d_{k}^{j} \d_{b}^{c}
+   \right]
+    \right)
+\end{align*}
+\end{document}

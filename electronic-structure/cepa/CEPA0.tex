@@ -1,0 +1,644 @@
+\documentclass{article}[11pt]
+\usepackage[margin=0.9in]{geometry}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{bm}
+%\usepackage{xfrac}
+
+
+\begin{document}
+
+\section*{Coupled-Electron Pair Approximations (CEPAs)}
+The CEPA methods are techniques for computing dynamic correlation energy on top of a Hartree-Fock (HF) reference. For convenience, define a correlation energy $E_{{c}}$ and a correlated Hamiltonian $\hat{H}_{\mathrm{c}}$:
+\begin{align*}
+E_{{c}} &= E_{\mathrm{e}} - E_{\mathrm{HF}}   &&  \hat{H}_{\mathrm{c}} = \hat{H}_{\mathrm{e}} - E_{\mathrm{HF}} \\
+\intertext{Obeying the convention that indices $i,j,k...$ correspond to occupied orbitals and $a,b,c,...$ to virtual orbitals, we also define a doubles excitation operator:}
+\hat{T}_2 | \Phi \rangle &= \frac{1}{4}\sum\limits_{ijab} t_{ij}^{ab} | \Phi_{ij}^{ab} \rangle.
+\end{align*}
+With these definitions and a Hartree-Fock reference $| \Phi \rangle$, the CCD equations are:
+\begin{align}
+   E_c 
+&= 
+	\langle \Phi |
+      \hat{H}_c
+      \hat{T_2}
+   | \Phi \rangle
+\\
+   E_c
+   t_{ij}^{ab}
+&=
+     \langle
+   	  \Phi_{ij}^{ab} |
+      \hat{H}_c 
+   | \Phi \rangle
++
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c
+      \hat{T_2}
+   | \Phi \rangle
++ 
+   \frac{1}{2}
+   \langle \Phi_{ij}^{ab}
+     | \hat{H}_c
+      \hat{T_2}^2 |
+    \Phi \rangle \
+\end{align}
+where (1) is called the CCD energy expression and (2) is the CCD amplitude equations for the excitation $ij\rightarrow ab$. Both expressions can be simplified using Slater rules or Wick's theorem. 
+%but for our purposes we'll simplify the $\bra{\F}\hat{H}_{{c}}\hat{T}_2| \Phi \rangle$ and $\frac{1}{2}\langle \Phi_{ij}^{ab} |\hat{H}_{\mathrm{c}}\hat{T}_2^2| \Phi \rangle$ terms:
+\begin{align*}
+\intertext{The simplified energy expression (1) is:}
+   E_{{c}}
+&= 
+   \cancel{
+   \langle \Phi |
+      \hat{H}_c
+   | \Phi \rangle
+   }
++ 
+   \frac{1}{4}
+   \sum\limits_{klcd}
+   t_{kl}^{cd}
+   \langle \Phi |
+      \hat{H}_c
+   | \Phi_{kl}^{cd} \rangle
+\\
+   E_{{c}}
+&= 
+   \frac{1}{4}
+   \sum\limits_{klcd}
+   \langle 
+   		kl || cd 
+	\rangle
+   t_{kl}^{cd}
+\intertext{For the amplitude equations, we can split up the $\hat{T}_2^2$ term into linked and unlinked contributions.}
+   \frac{1}{2}
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c
+      \hat{T}_2^2
+   | \Phi \rangle \
+&=
+   \frac{1}{2}
+   \left(
+      \frac{1}{4}
+   \right)^2
+   \sum\limits_{klcd}
+   \sum\limits_{mnef}
+   t_{kl}^{cd}
+   t_{mn}^{ef}
+   \langle \Phi_{ij}^{ab}
+    | \hat{H}_c |
+   \rangle \Phi_{klmn}^{cdef}
+\\
+&= 
+   \Delta_{{U}} 
++ 
+   \Delta_{{L}} 
+\intertext{where the unlinked ($\Delta_{{U}} $) and linked ($\Delta_{\mathrm{L}}$) contributions are defined as follows.}
+\\
+  \Delta_{{U}} 
+&= 
+   \frac{1}{4}
+   \sum\limits_{klcd}
+  \langle kl || cd \rangle
+   t_{kl}^{cd}
+   t_{ij}^{ab}
+\\
+   \Delta_{{L}}
+&= 
+- 
+   \frac{1}{2}
+   \hat{P}(ab)
+   \sum\limits_{klcd}
+  \langle kl || cd \rangle
+   t_{ij}^{ac}
+   t_{kl}^{bd}
+- 
+   \frac{1}{2}
+   \sum\limits_{klcd}
+   \hat{P}(ij)
+   \langle kl || cd \rangle
+   t_{ik}^{ab}
+   t_{jl}^{cd}
+\\
+&+ 
+   \frac{1}{4}
+   \sum\limits_{klcd}
+   \langle kl || cd \rangle
+   t_{ij}^{cd}
+   t_{kl}^{ab}
++ 
+  \hat{P}(ij)
+  \sum\limits_{klcd}
+  \langle kl || cd \rangle
+  t_{ik}^{ac}
+  t_{jl}^{bd}
+\intertext{Note that $\Delta_{{U}} = E_c t_{ij}^{ab}$, the left-hand side of equation (2). Thus the amplitude equation (2) simplifies to}
+   \cancel{
+   E_c
+   t_{ij}^{ab}
+   }
+&=
+	\langle
+   		\Phi_{ij}^{ab}
+      	| \hat{H}_c  |
+   		\Phi 
+   \rangle
++
+   \langle
+   		\Phi_{ij}^{ab}
+      	| 	\hat{H}_c
+      		\hat{T_2}
+		| 
+	\Phi \rangle
++
+   \cancel{
+    \Delta_{{U}}
+    }
++ 
+   \Delta_{{L}}
+\end{align*}
+Applying these simplifications, the energy and amplitude equations can be written as
+\begin{align}
+    E_c
+ &= 
+    \frac{1}{4}
+   \sum\limits_{klcd}
+   \langle kl || cd \rangle
+   t_{kl}^{cd}
+ \\
+    0 
+&= 
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c 
+   | \Phi \rangle
++
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c
+      \hat{T_2}
+   | \Phi \rangle
++ 
+   \Delta_{{L}}
+\end{align}
+The CCD expression for $\Delta_{{L}}$ is nonlinear in the $t$-amplitudes (they are multiplied by each other). This is what makes the coupled-cluster equations very complex and difficult to parallelize in a production code. Thus, the goal of the CEPA methods is to include a linear approximation for $\Delta_{\mathrm{L}}$. 
+ \newpage
+
+\subsection*{CEPA(0)}
+The simplest CEPA technique, known as CEPA(0), simply assumes $\Delta_{{L}} = 0$, yielding the equations
+\begin{equation}
+    E_c
+= 
+    \frac{1}{4}
+   \sum\limits_{klcd}
+   \langle kl || cd \rangle
+   t_{kl}^{cd}
+\end{equation}
+\begin{equation}
+	\label{eq:cepa0-amplitudes}
+    0 
+= 
+   \langle \Phi_{ij}^{ab} | 
+      \hat{H}_c 
+   | \Phi \rangle
++
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c
+      \hat{T_2}
+   | \Phi \rangle
+\end{equation}
+\\
+Note that the energy expression has not changed, but the amplitudes in
+Equation~\ref{eq:cepa0-amplitudes} have been simplified to include only linear
+terms.
+The motivation for this simplification is that the linked contributions to the
+$\hat{T}_2^2$ matrix element mostly cancel each other out. 
+This has proven to be a fair assumption; CEPA$_0$ often outperforms CCSD in the
+equilibrium region, albeit due to error cancellation.
+%One can apply the Slater Rules (or Wick's theorem) to the first and third
+%terms on the right-hand side of (2):
+%\begin{equation*}
+%   \langle \Phi_{ij}^{ab} | 
+%      \hat{H}_c 
+%   | \Phi \rangle
+%=
+%   \braket{ij || ab} 
+%\end{equation*}
+%\begin{equation*}
+% \sum\limits_{\substack{k<l\\c<d}}
+%   \sum\limits_{\substack{m<n\\e<f}}
+%   t_{kl}^{cd}
+%   t_{mn}^{ef}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   \ket{\Phi_{klmn}^{cdef}}
+%= 
+%   \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}}
+%\end{equation*}
+%We now have simplified the amplitude equations,
+%\begin{equation}
+%E_c
+%   t_{ij}^{ab}
+%=
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%+ 
+%   \frac{1}{2}
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   \sum\limits_{\substack{m<n\\e<f}}
+%   t_{kl}^{cd}
+%   t_{mn}^{ef}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   \ket{\Phi_{klmn}^{cdef}} \
+%\end{equation}
+%\begin{align*}
+%   \braket{ij || ab} 
+%&+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%+ 
+%   \frac{1}{2}
+%   \left[ 
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}} \
+%   + 
+%      \sum\limits_{\substack{m<n\\e<f}}^{\neq ijab}
+%      t_{mn}^{ef}
+%      t_{ij}^{ab}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{mn}^{ef}} \
+%   \right ] 
+%\intertext{Since summed-over indices are effectively just dummy variables,}
+%&= 
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%+ 
+%   \frac{1}{2}
+%   \left[ 
+%      2 
+%      \times
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}} \
+%    \right] 
+%\end{align*}
+%On the lefthand side, substitute the expression for $E_c$ from (1):
+%\begin{align*}
+%  t_{ij}^{ab} 
+%  \left(
+%     \sum\limits_{\substack{k<l\\c<d}}
+%      t_{kl}^{cd}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}} \
+%   \right)
+%&= 
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%+ 
+%      t_{ij}^{ab}
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}}
+%\\
+%  t_{ij}^{ab} 
+%  \sum\limits_{\substack{k<l\\c<d}}^{=ijab}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}} \
+%&= 
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%\intertext{We can clearly see that each term on the lefthand side is quadratic in the t-amplitudes. In the CEPA$_0$ approximation, we ignore all of these terms under the assumption that they are small.} 
+%   \cancel{
+%      t_{ij}^{ab} 
+%      \sum\limits_{\substack{k<l\\c<d}}^{=ijab}
+%      t_{kl}^{cd}
+%      \bra{\F}
+%         \hat{H}_c
+%      \ket{\Phi_{kl}^{cd}}
+%   }
+%&= 
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%\\
+%\end{align*}
+%Which yields the final CEPA$_0$ amplitude equations. We can solve them iteratively to obtain the coefficients $t_{ij}^{ab}$, which we use to evaluate the CCD energy expression. This is the CEPA$_0$ energy.
+%\begin{equation*}
+%   \boxed{
+%   0
+%= 
+%   \braket{ij || ab} 
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   \ket{\Phi_{kl}^{cd}}
+%}
+%\end{equation*}
+
+\subsection*{CEPA(1)}
+
+For the  CEPA(1) method, we introduce the concept of pair energies:
+\begin{equation*} 
+   \epsilon_{ij}
+=
+   \frac{1}{2}
+   \sum\limits_{ab}
+   c_{ij}^{ab}
+   \langle \Phi |
+      \hat{H}_{{c}}
+   | \Phi_{ij}^{ab} \rangle
+\end{equation*}
+Physically we can think of the pair energy as the energy contributions of those
+configurations that have electrons excited from the same occupied orbitals,
+summed over all possible excitations into virtual orbitals.
+Using this notation, the CEPA(1) technique approximates the unlinked
+contributions as follows:
+\begin{equation*}
+      \Delta_{{L}} 
+=
+   c_{ij}^{ab}
+   \left(
+   \epsilon_{ij} 
++
+   \frac{1}{2}
+   \sum\limits_{k}
+      \left(
+        \epsilon_{ik}
+        +
+        \epsilon_{kj}
+      \right)
+   \right)
+\end{equation*}
+Notably, approximation has the desired property of being exact for separated
+electron pairs.
+The resulting amplitude equations are given by
+\begin{equation}
+    c_{ij}^{ab}
+    \left(
+   \epsilon_{ij} 
++
+   \frac{1}{2}
+   \sum\limits_{k}
+      \left(
+        \epsilon_{ik}
+        +
+        \epsilon_{kj}
+      \right)
+   \right)
+= 
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c 
+   | \Phi \rangle
++
+   \langle \Phi_{ij}^{ab} |
+      \hat{H}_c
+      \hat{T_2}
+   | \Phi \rangle.
+\end{equation}
+
+\newpage
+%\subsection*{CEPA(0) Appendix}
+%The simplest CEPA technique, known as CEPA(0), simply assumes $\Delta_{{L}} =
+%0$, yielding the equations
+%\begin{equation}
+%    E_c
+%= 
+%    \frac{1}{4}
+%   \sum\limits_{klcd}
+%   \langle kl || cd \rangle
+%   t_{kl}^{cd}
+%\end{equation}
+%\begin{equation}
+%    0 
+%= 
+%   \langle \Phi_{ij}^{ab} | 
+%      \hat{H}_c 
+%   | \Phi \rangle
+%+
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%      \hat{T_2}
+%   | \Phi \rangle
+%\end{equation}
+%\\
+%Note that the energy expression has not changed, but the amplitudes in
+%Equation~\ref{eq:cepa0-amplitudes} have been simplified to include only linear
+%terms.
+%The motivation for this simplification is that the linked contributions to the
+%$\hat{T}_2^2$ matrix element mostly cancel each other out. 
+%This has proven to be a fair assumption; CEPA$_0$ often outperforms CCSD in the
+%equilibrium region, albeit due to error cancellation.
+%One can apply the Slater Rules (or Wick's theorem) to the first and third
+%terms on the right-hand side of (2):
+%\begin{equation*}
+%   \langle \Phi_{ij}^{ab} | 
+%      \hat{H}_c 
+%   | \Phi \rangle
+%=
+%   \langle ij || ab \rangle
+%\end{equation*}
+%\begin{equation*}
+% \sum\limits_{\substack{k<l\\c<d}}
+%   \sum\limits_{\substack{m<n\\e<f}}
+%   t_{kl}^{cd}
+%   t_{mn}^{ef}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   | \Phi_{klmn}^{cdef} \rangle
+%= 
+%   \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%	  \rangle \Phi |
+%         \hat{H}_c
+%	  | \Phi \langle
+%\end{equation*}
+%We now have simplified the amplitude equations,
+%\begin{equation}
+%E_c
+%   t_{ij}^{ab}
+%=
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   |\Phi_{kl}^{cd} \rangle
+%+ 
+%   \frac{1}{2}
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   \sum\limits_{\substack{m<n\\e<f}}
+%   t_{kl}^{cd}
+%   t_{mn}^{ef}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   |\Phi_{klmn}^{cdef} \rangle \
+%\end{equation}
+%\begin{align*}
+%   \langle ij || ab \rangle
+%&+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi |
+%      \hat{H}_c
+%	| \Phi _{kl}^{cd} \rangle
+%+ 
+%   \frac{1}{2}
+%   \left[ 
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%	  \langle \Phi |
+%         \hat{H}_c
+%      | \Phi_{kl}^{cd} \rangle 
+%   + 
+%      \sum\limits_{\substack{m<n\\e<f}}^{\neq ijab}
+%      t_{mn}^{ef}
+%      t_{ij}^{ab}
+%	  \langle \Phi |
+%         \hat{H}_c
+%      | \Phi_{mn}^{ef} \rangle
+%   \right ] 
+%\intertext{Since summed-over indices are effectively just dummy variables,}
+%&= 
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle \
+%+ 
+%   \frac{1}{2}
+%   \left[ 
+%      2 
+%      \times
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      t_{ij}^{ab}
+%      \bra{\F}
+%         \hat{H}_c
+%   	  | \Phi_{kl}^{cd} \rangle \
+%    \right] 
+%\end{align*}
+%On the lefthand side, substitute the expression for $E_c$ from (1):
+%\begin{align*}
+%  t_{ij}^{ab} 
+%  \left(
+%     \sum\limits_{\substack{k<l\\c<d}}
+%      t_{kl}^{cd}
+%      \langle \Phi |
+%         \hat{H}_c
+%   	| \Phi_{kl}^{cd} \rangle \
+%   \right)
+%&= 
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi |
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle \
+%+ 
+%      t_{ij}^{ab}
+%      \sum\limits_{\substack{k<l\\c<d}}^{\neq ijab}
+%      t_{kl}^{cd}
+%      \langle \Phi |
+%         \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle \
+%\\
+%  t_{ij}^{ab} 
+%  \sum\limits_{\substack{k<l\\c<d}}^{=ijab}
+%   t_{kl}^{cd}
+%   \langle \Phi |
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle \
+%&= 
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi |
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle
+%\intertext{We can clearly see that each term on the lefthand side is quadratic in the t-amplitudes. In the CEPA$_0$ approximation, we ignore all of these terms under the assumption that they are small.} 
+%   \cancel{
+%      t_{ij}^{ab} 
+%      \sum\limits_{\substack{k<l\\c<d}}^{=ijab}
+%      t_{kl}^{cd}
+%      \bra{\F}
+%         \hat{H}_c
+%      | \Phi_{kl}^{cd} \rangle
+%   }
+%&= 
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \langle \Phi_{ij}^{ab} |
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle
+%\\
+%\end{align*}
+%Which yields the final CEPA$_0$ amplitude equations. We can solve them iteratively to obtain the coefficients $t_{ij}^{ab}$, which we use to evaluate the CCD energy expression. This is the CEPA$_0$ energy.
+%\begin{equation*}
+%   \boxed{
+%   0
+%= 
+%   \langle ij || ab \rangle
+%+
+%   \sum\limits_{\substack{k<l\\c<d}}
+%   t_{kl}^{cd}
+%   \bra{\F}
+%      \hat{H}_c
+%   | \Phi_{kl}^{cd} \rangle
+%}
+%\end{equation*}
+\end{document}
