@@ -21,7 +21,12 @@ class RidgeRegression:
     def fit(self, x, y):
 
         X = self.augment(x)
+
+        # Regularization matrix
         aI = np.diag([self.alpha] * len(X.T))
+
+        # Don't regularize the intercept
+        aI[0][0] = 0
 
         self.beta = np.linalg.inv(X.T @ X + aI) @ X.T @ y
 
@@ -62,13 +67,11 @@ if __name__ == '__main__':
 
     # Test against scikit-learn
     ridge = Ridge(alpha=0.1).fit(x, y)
-    #assert np.allclose(yhat, ridge.predict(x))
-    print(yhat)
-    print(ridge.predict(x))
+    assert np.allclose(yhat, ridge.predict(x))
 
     # Score
-    #score = myRR.score(x, y)
-    #print("OLS R^2 value: {:>2.3f}".format(score))
+    score = myRidge.score(x, y)
+    print("Ridge Regression R^2 value: {:>2.3f}".format(score))
 
     # Plot observations and LR prediction
     grid = np.linspace(0, 10)
